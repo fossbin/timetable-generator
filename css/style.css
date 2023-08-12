@@ -1,0 +1,17 @@
+.message{
+    background-color:#d4edda;
+    color:green;
+    height: 2rem;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.timetable-msg{
+    /* background-color:#d2f1da; */
+    color:green;
+    height: 2rem;
+    margin-bottom: 5px;
+    padding-left:25px;
+    font-size: 16px;
+    font-weight: 500;
+}
