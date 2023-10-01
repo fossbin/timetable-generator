@@ -308,13 +308,13 @@ D5FFF3
                     <!-- Content Row -->
                     <div class="card-deck">
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="d-inline-block col-xl-3 col-md-6 mb-4">
+                        <div class="d-inline-block col-xl-3 col-md-6 mb-4" onclick="redirectProgram()">
                             <div class="card shadow h-100 py-2" style="border-left-color:#043565; border-left-width:7px;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col ">
                                             <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Programmes</div>
+                                                Total Programmes</div>  
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_pgms?></div>
                                         </div>
                                         <div class="col-auto">
@@ -324,7 +324,7 @@ D5FFF3
                                 </div>
                             </div>
                         </div>
-                        <div class="d-inline-block col-xl-3 col-md-6 mb-4">
+                        <div class="d-inline-block col-xl-3 col-md-6 mb-4" onclick="redirectBatch()">
                             <div class="card shadow h-100 py-2" style="border-left-color:#043565; border-left-width:7px;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -340,7 +340,7 @@ D5FFF3
                                 </div>
                             </div>
                         </div>
-                        <div class="d-inline-block col-xl-3 col-md-6 mb-4">
+                        <div class="d-inline-block col-xl-3 col-md-6 mb-4" onclick="redirectFaculty()">
                             <div class="card shadow h-100 py-2" style="border-left-color:#043565; border-left-width:7px;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -356,7 +356,18 @@ D5FFF3
                                 </div>
                             </div>
                         </div>
-
+                        <script>
+                            function redirectProgram(){
+                                window.location.href = './program/index.php';
+                            }
+                            function redirectBatch(){
+                                window.location.href = './batch/index.php';
+                            }
+                            function redirectFaculty(){
+                                window.location.href = './faculty/index.php';
+                            }
+                        </script>
+                        
                          <!-- Earnings (Monthly) Card Example -->
                          <!-- <div class="d-inline-block col-xl-3 col-md-6 mb-4 pl-0 pr-4">
                             <div class="card shadow h-100 py-2 w-100" style="border-left-color:#043565; border-left-width:7px;">
@@ -433,7 +444,7 @@ D5FFF3
             <footer class="sticky-footer bg-white ">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SSTM 2022</span>
+                        <span>Copyright &copy; SSTM 2023</span>
                     </div>
                 </div>
             </footer>

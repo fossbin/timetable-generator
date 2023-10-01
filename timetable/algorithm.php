@@ -53,7 +53,7 @@ if ($batches->num_rows > 0) {
         $libraryDay = $batch_counter % 5 + 1;
         $libraryCount = 0;
 
-        while ($day <= 5) {
+        while ($day <= 6) {
             $subject_index = $day - 1;
             $hour = 1;
 
