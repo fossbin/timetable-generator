@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 require "class/db.php";
 
 $error = false;

@@ -2,8 +2,9 @@
 
 require "../class/db.php";
 session_start();
-if (isset($_SESSION['adminid'])) { }  //admin is logged in
-else { header("location: ../login/php"); } //redirect to login page
+if(isAdminLoggedIn());
+//if (isset($_SESSION['adminid'])) { }  //admin is logged in
+//else { header("location: ../login/php"); } //redirect to login page
 
 
 $db->query("Delete from tbl_timetable");
@@ -52,11 +53,11 @@ if ($batches->num_rows > 0) {
         $libraryDay = $batch_counter % 5 + 1;
         $libraryCount = 0;
 
-        while ($day <= 6) {
+        while ($day <= 5) {
             $subject_index = $day - 1;
             $hour = 1;
 
-            $workingDays = array("1" => "Monday","2" => "Tuesday","3" => "Wednesday","4" => "Thursday","5" => "Friday","6" => "Saturday");
+        $workingDays = array("1" => "Monday","2" => "Tuesday","3" => "Wednesday","4" => "Thursday","5" => "Friday","6" => "Saturday");
             $dayOfWeek = $workingDays[$day];
 
             $libraryHour = 3;
