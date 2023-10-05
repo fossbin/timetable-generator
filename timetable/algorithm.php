@@ -14,13 +14,14 @@ $db->query("Update tbl_subject set subcount=4"); //initializing subject count to
 $batches = $db->query("Select * from tbl_batch where bStatus=1");
 
 if ($batches->num_rows > 0) {
-    $batch_counter = 0;
+    $batch_counter = 0;  //Unused variable thats assigned an arbitrary value 0 --fossbin
 
     while ($batch_row = $batches->fetch_assoc()) {
         //fetch batch id, program id and current semester of batch
         $bid = $batch_row['bid'];
         $pid = $batch_row['pid'];
         $semid = $batch_row['bCurrentSem'];
+        //$batch_counter++;  //Potential fix to arbitrarily assigned variable
 
         //fetch all subjects for that semester for the batch
         $subject_list = $db->query("Select * from tbl_allocation where bid=$bid and semid=$semid");
@@ -57,7 +58,7 @@ if ($batches->num_rows > 0) {
             $subject_index = $day - 1;
             $hour = 1;
 
-        $workingDays = array("1" => "Monday","2" => "Tuesday","3" => "Wednesday","4" => "Thursday","5" => "Friday","6" => "Saturday");
+            $workingDays = array("1" => "Monday","2" => "Tuesday","3" => "Wednesday","4" => "Thursday","5" => "Friday","6" => "Saturday");
             $dayOfWeek = $workingDays[$day];
 
             $libraryHour = 3;

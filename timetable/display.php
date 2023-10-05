@@ -37,9 +37,8 @@ else{
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <script type="text/javascript">
-
-        
     </script>
+
 
 </head>
 
@@ -88,7 +87,7 @@ else{
             <li class="nav-item">
                 <a class="nav-link" href="../batch/index.php" >
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Batch</span>
+                    <span>Batches</span>
                 </a>
             </li>
 
@@ -256,6 +255,15 @@ else{
             <button style="width:80px" class="btn-sm btn-primary a-btn-slide-text">
             <span style="width=400; font-size:14px;"><strong>Back</strong></span>
             </button>
+            <!--<button style="width:80px" class="btn-sm btn-primary a-btn-slide-text" onclick="refreshPage()">
+            Refresh
+            </button>
+            <script>
+            function refreshPage() {
+                // This JavaScript function will reload the current page
+                window.location.reload();
+            }
+            </script>-->
         </div>
         </form>
 
@@ -270,6 +278,7 @@ else{
                         </form>
                         
                         <!--MODAL-------------------------------------------------------------------------------------------------------------------------->
+                            <form method="POST" action="update.php">
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -280,11 +289,9 @@ else{
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
-                                     <div class="form-group">
+                                    <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Select faculty</label>
-                                        <!-- <input type="text" class="form-control" id="recipient-name"> -->
-                                         <select name="faculty" id="faculty" class="form-control" required>
+                                        <select name="faculty" id="faculty" class="form-control" required>
 													<option value="">Select Faculty</option>
                                                     <?php
                                                         $sql_faculty = "select * from tbl_faculty";
@@ -298,23 +305,24 @@ else{
                                                             }
                                                         }
                                                     ?>   
-												</select> 
+										</select> 
                                     </div> 
-                                  
+                                                        
 											
                                     <!-- <div class="form-group">
                                         <label for="message-text" class="col-form-label">Message:</label>
                                         <textarea class="form-control" id="message-text"></textarea>
                                     </div> -->
-                                    </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="timetableId" id="timetableIdField" value="">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Edit</button>
+                                    </div>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Edit</button>
                                 </div>
-                                </div>
-                            </div>
-                            </div>
+                            </form>
                          <!------------------------------------------------------- end of modal --------------------------------------------------------------->
                             
                         </tr>
@@ -406,7 +414,12 @@ else{
                                                                 ?>
                                                                                 <!----------------- DISPLAY FACULTY----------------------------------------------->
                                                                         
-                                                                                <td data-target="#exampleModal" data-toggle="modal" style="justify-content:center; text-align:center;cursor:pointer" width="10%"
+                                                                                <td data-target="#exampleModal" data-toggle="modal" 
+                                                                                data-cell-id="
+                                                                                <?php
+                                                                                    echo $timetable_row['id'];
+                                                                                ?>"  
+                                                                                style="justify-content:center; text-align:center;cursor:pointer" width="10%"
                                                                                 onMouseOver="this.style.backgroundColor='#f1f4f7'"  onMouseOut="this.style.backgroundColor='white'">
                                                                                 <?php 
                                                                                 echo $subname;?> <br>
@@ -425,7 +438,7 @@ else{
                                                                                 $faculty = $fName['fName'];
                                                                                 ?>
                                                                                 <span style="color:#043565"><?php echo "(".$faculty.")"; ?></span></td><?php
-                                                                    
+
                                                                     }?>
                                                             <?php        
                                                                             // }
@@ -445,8 +458,32 @@ else{
                                         } //END OF BATCH ROW
                                     }
                             ?>
-                                          
                        
+                       
+            <script>
+                //Attach a click event listener to all <td> elements
+                document.querySelectorAll('td[data-toggle="modal"]').forEach(function (td) {
+                    td.addEventListener('click', function () {
+                        // Get the value of the data-cell-id attribute from the clicked <td> element
+                        const cellId = this.getAttribute('data-cell-id');
+
+                        // Set the data-cell-id attribute in the modal form
+                        document.querySelector('#exampleModal').setAttribute('data-cell-id', cellId);
+
+                        // Trigger the modal
+                        $('#exampleModal').modal('show');
+                    });
+                });
+
+                // Attach an event listener to the "Edit" button in the modal
+                document.querySelector('.modal-footer button[type="submit"]').addEventListener('click', function () {
+                    // Get the data-cell-id attribute from the modal form
+                    const cellId = document.querySelector('#exampleModal').getAttribute('data-cell-id');
+
+                    // Set the facultyId value in the hidden input field
+                    document.getElementById('timetableIdField').value = cellId;
+                });
+            </script>                
 						
                 
         </div>
@@ -463,7 +500,7 @@ else{
             <footer class=" sticky-footer bg-white ">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SSTM 2022</span>
+                        <span>Copyright &copy; SSTM 2023</span>
                     </div>
                 </div>
             </footer>

@@ -37,15 +37,12 @@ $total_faculty = mysqli_num_rows($db->query("select * from tbl_faculty where fSt
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
     <!-- Custom styles for this template-->
     <link href="css/main.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
     <script type="text/javascript">
-
-        
     </script>
-
 </head>
 
 
@@ -93,7 +90,7 @@ $total_faculty = mysqli_num_rows($db->query("select * from tbl_faculty where fSt
             <li class="nav-item">
                 <a class="nav-link" href="batch/index.php" >
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Batch</span>
+                    <span>Batches</span>
                 </a>
             </li>
 
@@ -309,7 +306,7 @@ D5FFF3
                     <div class="card-deck">
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="d-inline-block col-xl-3 col-md-6 mb-4" onclick="redirectProgram()">
-                            <div class="card shadow h-100 py-2" style="border-left-color:#043565; border-left-width:7px;">
+                            <div class="card shadow h-100 py-2 highlight-on-hover" style="border-left-color:#043565; border-left-width:7px;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col ">
@@ -325,7 +322,7 @@ D5FFF3
                             </div>
                         </div>
                         <div class="d-inline-block col-xl-3 col-md-6 mb-4" onclick="redirectBatch()">
-                            <div class="card shadow h-100 py-2" style="border-left-color:#043565; border-left-width:7px;">
+                            <div class="card shadow h-100 py-2 highlight-on-hover" style="border-left-color:#043565; border-left-width:7px;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col ">
@@ -341,7 +338,7 @@ D5FFF3
                             </div>
                         </div>
                         <div class="d-inline-block col-xl-3 col-md-6 mb-4" onclick="redirectFaculty()">
-                            <div class="card shadow h-100 py-2" style="border-left-color:#043565; border-left-width:7px;">
+                            <div class="card shadow h-100 py-2 highlight-on-hover" style="border-left-color:#043565; border-left-width:7px;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col ">

@@ -121,7 +121,7 @@ else{
             <li class="nav-item">
                 <a class="nav-link" href="../batch/index.php" >
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Batch</span>
+                    <span>Batches</span>
                 </a>
             </li>
 
@@ -425,7 +425,7 @@ else{
             <footer class=" sticky-footer bg-white ">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SSTM 2022</span>
+                        <span>Copyright &copy; SSTM 2023</span>
                     </div>
                 </div>
             </footer>
