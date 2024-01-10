@@ -3,9 +3,6 @@
 require "../class/db.php";
 session_start();
 if(isAdminLoggedIn());
-//if (isset($_SESSION['adminid'])) { }  //admin is logged in
-//else { header("location: ../login/php"); } //redirect to login page
-
 
 $db->query("Delete from tbl_timetable");
 $db->query("Alter table tbl_timetable auto_increment=0");
@@ -14,20 +11,16 @@ $db->query("Update tbl_subject set subcount=4"); //initializing subject count to
 $batches = $db->query("Select * from tbl_batch where bStatus=1");
 
 if ($batches->num_rows > 0) {
-    $batch_counter = 0;  //Unused variable thats assigned an arbitrary value 0 --fossbin
+    $batch_counter=0;
 
     while ($batch_row = $batches->fetch_assoc()) {
-        //fetch batch id, program id and current semester of batch
         $bid = $batch_row['bid'];
         $pid = $batch_row['pid'];
         $semid = $batch_row['bCurrentSem'];
-        //$batch_counter++;  //Potential fix to arbitrarily assigned variable
 
-        //fetch all subjects for that semester for the batch
         $subject_list = $db->query("Select * from tbl_allocation where bid=$bid and semid=$semid");
         $total_subjects = mysqli_num_rows($subject_list);
- 
-        //fetch the subject ids and store in an array
+        
         if ($subject_list->num_rows > 0) {
             $subjects = array();
             while ($subject_row = $subject_list->fetch_assoc()) {
@@ -38,15 +31,15 @@ if ($batches->num_rows > 0) {
         else {
             continue;
         }
-
-        $subject_details = $db->query ("SELECT tbl_allocation.bid, tbl_allocation.semid, tbl_allocation.subid, tbl_subject.subcount FROM tbl_allocation left outer join tbl_subject on tbl_subject.subid=tbl_allocation.subid where tbl_allocation.bid=$bid and tbl_allocation.semid=$semid");
+        
+        $sql="SELECT tbl_allocation.bid, tbl_allocation.semid, tbl_allocation.subid, tbl_subject.subcount FROM tbl_allocation, tbl_subject where tbl_allocation.subid=tbl_subject.subid and tbl_allocation.bid=$bid and tbl_allocation.semid=$semid";
+        $subject_details = $db->query($sql);
         if ($subject_details->num_rows > 0) {
             $subjectHourCount = array();
             while ($subject_detail_row = $subject_details->fetch_assoc()) {
                 $subjectHourCount[] = $subject_detail_row['subcount'];
             }
         }
-        
 
         $day = 1;
         $hour = 1;
@@ -64,26 +57,7 @@ if ($batches->num_rows > 0) {
             $libraryHour = 3;
 
             while ($hour <= 6) {
-                // Check if there are hours remaining for any subject
-                $isRemainingHours = 0; // false
-                foreach ($subjectHourCount as $count) {
-                    if ($count != 0) {
-                        $isRemainingHours = 1; //true
-                        break;
-                    }
-                }
-
-                // Check if any faculty is available for the particular hour,for the particular batch
-                $isAvailableFaculty = 0; // false
-                foreach ($subjects as $subject) {
-                    $check_faculty = mysqli_num_rows($db->query("SELECT fid from tbl_allocation where subid=$subject INTERSECT Select fid from tbl_timetable where day='$dayOfWeek' and hour=$hour and bid!=$bid"));
-                    if ($check_faculty == 0) {
-                        $isAvailableFaculty = 1; //true
-                        break;
-                    }
-                }
-
-                // Allot Library
+                
                 allotLibrary:   
                 if ($day == $libraryDay && $hour == $libraryHour && $libraryCount < 1) {
                     $library = $db->query("Select * from tbl_activity where fid=01");
@@ -122,8 +96,6 @@ if ($batches->num_rows > 0) {
                     $db->query("Insert into tbl_timetable(bid, semid, day, hour, subid, fid) values ($bid,$semid,'$dayOfWeek',$hour,3,0)");
                     $hour++;
                 }
-                
-                // Allot Subjects
                 else {
                     $loop = 0;  
                     /* When allocating a subject, if faculty is unavailable, the next subject in the array is selected and the
@@ -234,14 +206,7 @@ if ($batches->num_rows > 0) {
 
                     $subject_index = $subject_index + 1;
                 }
-
-                // $hour++;
-            }
-            $day += 1;
-        }
-        $batch_counter++;
+            }        
     }
 }
-$_SESSION['msg'] = "Timetable generated successfully!";
-header("location: ../index.php");
 ?>

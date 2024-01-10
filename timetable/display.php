@@ -294,16 +294,26 @@ else{
                                         <select name="faculty" id="faculty" class="form-control" required>
 													<option value="">Select Faculty</option>
                                                     <?php
-                                                        $sql_faculty = "select * from tbl_faculty";
+                                                    /*$bidQuery="SELECT bid from tbl_timetable WHERE id=1";
+                                                    $bidVal=$db->query($bidQuery);
+                                                    $bidRow=$bidVal->fetch_assoc();
+                                                    $bid=$bidRow['bid'];
+
+                                                        //$sql_faculty = "select * from tbl_faculty,tbl_timetable where tbl_faculty.fid!=tbl_timetable.fid;";
+                                                        //$sql_faculty = "select * from tbl_faculty";
                                                         $result_faculty = $db->query($sql_faculty);
+                                                        //$count=1;
+                                                        
                                                         if( $result_faculty->num_rows > 0 )
                                                         {
                                                             while( $faculty_row = $result_faculty->fetch_assoc())
                                                             { ?>
-                                                            <option value="<?php echo $faculty_row['fid'];?>"><?php echo $faculty_row['fName'];?></option>
+                                                            <option value="<?php echo $count/*$faculty_row['fid'];?>"><?php echo $faculty_row['fName'];?></option>
                                                             <?php
+                                                            //$count++;
                                                             }
                                                         }
+                                                    */
                                                     ?>   
 										</select> 
                                     </div> 
@@ -429,7 +439,7 @@ else{
                                                                                 $faculty_sql= "select * from tbl_activity where fid=01";
                                                                                 } 
                                                                                 else{
-                                                                                $faculty_sql = "select * from tbl_faculty where fid in (select fid from tbl_allocation where subid=$subid)";
+                                                                                $faculty_sql = "select * from tbl_faculty where fid in (select fid from tbl_timetable where subid=$subid)";
                                                                                 }
                                                                                 if($subid!=2 and $subid!=3)
                                                                                 {
@@ -439,16 +449,16 @@ else{
                                                                                 ?>
                                                                                 <span style="color:#043565"><?php echo "(".$faculty.")"; ?></span></td><?php
 
-                                                                    }?>
-                                                            <?php        
+                                                                             }?>
+                                                                        <?php        
                                                                             // }
                                                                         // }
+                                                                        }
                                                                     }
                                                                 }
-                                                            }
-                                                            ?>
-                                                            </tr> 
-                                                            <?php
+                                                                ?>
+                                                                </tr> 
+                                                                <?php
                                                             }
                                                         } 
                                                     ?> 
@@ -461,6 +471,10 @@ else{
                        
                        
             <script>
+                function generateUniqueId() {
+                    return 'id-' + new Date().getTime();
+                }
+                
                 //Attach a click event listener to all <td> elements
                 document.querySelectorAll('td[data-toggle="modal"]').forEach(function (td) {
                     td.addEventListener('click', function () {
@@ -472,8 +486,40 @@ else{
 
                         // Trigger the modal
                         $('#exampleModal').modal('show');
+
+                        // Load faculty data into the dropdown for the specific cell
+                        loadFacultyDropdown(cellId);
                     });
                 });
+
+                // Function to load faculty data into the dropdown
+                function loadFacultyDropdown(cellId) {
+                // Get the timetableId value from the hidden input field
+                const timetableId = document.getElementById('timetableIdField').value;
+
+                // Get the selected cell's faculty dropdown element
+                const facultyDropdown = document.getElementById('faculty');
+                
+                
+                console.log('Cell ID:', cellId);
+
+                // Make an AJAX request to fetch faculty data for the specific cell
+                    $.ajax({
+                        type: 'POST',
+                        url: 'getdata.php', // Replace with the actual path to your PHP script
+                        data: {
+                            cellId: cellId
+                        },
+                        success: function (response) {
+                            // Update the content of the faculty dropdown with the fetched data
+                            console.log('Response:', response);
+                            facultyDropdown.innerHTML = response;
+                        },
+                        error: function (error) {
+                            console.log('Error: ' + error);
+                        }
+                    });
+                }
 
                 // Attach an event listener to the "Edit" button in the modal
                 document.querySelector('.modal-footer button[type="submit"]').addEventListener('click', function () {
