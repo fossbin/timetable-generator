@@ -293,36 +293,9 @@ else{
                                         <label for="recipient-name" class="col-form-label">Select faculty</label>
                                         <select name="faculty" id="faculty" class="form-control" required>
 													<option value="">Select Faculty</option>
-                                                    <?php
-                                                    /*$bidQuery="SELECT bid from tbl_timetable WHERE id=1";
-                                                    $bidVal=$db->query($bidQuery);
-                                                    $bidRow=$bidVal->fetch_assoc();
-                                                    $bid=$bidRow['bid'];
-
-                                                        //$sql_faculty = "select * from tbl_faculty,tbl_timetable where tbl_faculty.fid!=tbl_timetable.fid;";
-                                                        //$sql_faculty = "select * from tbl_faculty";
-                                                        $result_faculty = $db->query($sql_faculty);
-                                                        //$count=1;
-                                                        
-                                                        if( $result_faculty->num_rows > 0 )
-                                                        {
-                                                            while( $faculty_row = $result_faculty->fetch_assoc())
-                                                            { ?>
-                                                            <option value="<?php echo $count/*$faculty_row['fid'];?>"><?php echo $faculty_row['fName'];?></option>
-                                                            <?php
-                                                            //$count++;
-                                                            }
-                                                        }
-                                                    */
-                                                    ?>   
 										</select> 
                                     </div> 
-                                                        
-											
-                                    <!-- <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Message:</label>
-                                        <textarea class="form-control" id="message-text"></textarea>
-                                    </div> -->
+                                              
                                     </div>
                                     <div class="modal-footer">
                                         <input type="hidden" name="timetableId" id="timetableIdField" value="">
