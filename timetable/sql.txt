@@ -1,3 +1,0 @@
-Finding free facult of tha batch
-
-SELECT * FROM tbl_faculty WHERE fid IN (SELECT fid FROM tbl_allocation WHERE bid in(select bid from tbl_timetable where bid=5));

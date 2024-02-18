@@ -6,7 +6,6 @@ if(isAdminLoggedIn());
 //if (isset($_SESSION['adminid'])) { }  //admin is logged in
 //else { header("location: ../login/php"); } //redirect to login page
 
-
 $db->query("Delete from tbl_timetable");
 $db->query("Alter table tbl_timetable auto_increment=0");
 $db->query("Update tbl_subject set subcount=4"); //initializing subject count to 4 per week

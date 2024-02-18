@@ -272,18 +272,18 @@ D5FFF3
                                     <span>Generate Timetable<span>
                                     </a>
                                 </div>
-                                <div class="">
+                                <div class="mr-2">
                                     <a href="timetable/display.php" class="btn btn-md btn-primary shadow-sm">
                                     <i class="fas fa-file fa-sm text-white-50"></i> 
                                     <span>View Timetable</span>
                                     </a>
                                 </div>
-                                <!-- <div class="float-right mb-4 col-xl-8 mb-4">
-                                    <a href="timetable/display.php" class="btn btn-md btn-primary shadow-sm">
-                                    <i class="fas fa-file fa-sm text-white-50"></i> 
-                                    <span>View Timetable</span>
+                                <div class="mr-2">
+                                    <a href="timetable/records.php" class="btn btn-md btn-primary shadow-sm">
+                                    <i class="fas fa-cloud-download-alt fa-sm text-white-50"></i> 
+                                    <span>View Previous Timetables</span>
                                     </a>
-                                </div> -->
+                                </div>
                                 
                         </div>
                     </div>
