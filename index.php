@@ -267,7 +267,7 @@ D5FFF3
                     <div class="">
                         <div class="card-body d-flex" >
                                 <div class="mr-2">
-                                    <a href="timetable/algorithm.php" class="btn btn-md btn-primary shadow-sm">
+                                    <a class="btn btn-md btn-primary shadow-sm" onclick="redirectToTarget()">
                                     <i class="fas fa-clock fa-sm text-white-50"></i>
                                     <span>Generate Timetable<span>
                                     </a>
@@ -284,9 +284,33 @@ D5FFF3
                                     <span>View Previous Timetables</span>
                                     </a>
                                 </div>
-                                
                         </div>
                     </div>
+                    <div class="">
+                        <div class="form-group">
+                            <div style="width:40%"><label style="margin-left:20px;" class="column">Working Days (Use ctrl to select)</label></div>
+                            <select id="options" name="daysOfWeek" class="form-control" style="width:20%; margin-left: 20px;" multiple required>
+                                <option value=1>Monday</option>
+                                <option value=2>Tuesday</option>
+                                <option value=3>Wednesday</option>
+                                <option value=4>Thursday</option>
+                                <option value=5>Friday</option>
+                                <option value=6>Saturday</option>
+                            </select>
+                        </div>
+                    </div>
+                    <script>
+                    function redirectToTarget() {
+                        var selectedOptions = [];
+                        var selectElement = document.getElementById("options");
+                        for (var i = 0; i < selectElement.options.length; i++) {
+                            if (selectElement.options[i].selected) {
+                                selectedOptions.push(selectElement.options[i].value);
+                            }
+                        }
+                        window.location.href = 'timetable/algorithm.php?options=' + JSON.stringify(selectedOptions);
+                    }
+                    </script>
                     <div>
                         <?php  
                             if(isset($_SESSION['msg'])) {?>

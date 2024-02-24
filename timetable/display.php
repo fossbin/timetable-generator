@@ -252,20 +252,25 @@ else{
 
         <form action="../index.php" name="back">
         <div style="float:left;" class="font-weight-bold text-right">
-            <button style="width:80px" class="btn-sm btn-primary a-btn-slide-text">
+            <button style="width:80px;margin-top:17px;" class="btn-sm btn-primary a-btn-slide-text">
             <span style="width:400; font-size:14px;"><strong>Back</strong></span>
             </button>
         </div>
         </form>
         <form action="print.php" name="print">
         <div style="float:right;" class="font-weight-bold text-right">
-            <button style="width:80px" class="btn-sm btn-primary a-btn-slide-text">
+            <button style="width:80px;margin-top:0px;" class="btn-sm btn-primary a-btn-slide-text">
             <span style="width:400; font-size:14px;"><strong>Print</strong></span>
             </button>
         </div>
         </form>
-        
-
+        <form action="store.php" name="store">
+        <div style="float:right;margin-right:20px;" class="font-weight-bold text-right">
+            <button style="width:80px;margin-top:0px;" class="btn-sm btn-primary a-btn-slide-text">
+            <span style="width:400; font-size:14px;"><strong>Save</strong></span>
+            </button>
+        </div>
+        </form>
     </div>
     <div class="card-body">
         <div class="table-responsive">
