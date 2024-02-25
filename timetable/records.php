@@ -1,17 +1,9 @@
 <?php
-
 require "../class/db.php";
-
 session_start();
-
-if(isset($_SESSION['adminid']))
-{
-    //no need to do anything
-}
-else{
-    header("location: ../login.php");
-}
-
+if(isAdminLoggedIn());
+$sql_dates = "SELECT * FROM tbl_storage";
+$result_dates = $db->query($sql_dates);
 ?>
 
 <!DOCTYPE html>
@@ -249,6 +241,43 @@ else{
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header">
+    <form name="timetableForm" method="POST" action="">
+    <div style="display: flex; align-items: center;">
+    <select id="dateSelector" class="form-control" style="width: min-content;">
+    <option value="">Select Date</option>
+    <?php 
+    while ($row = $result_dates->fetch_assoc()): ?>
+        <option value="<?php echo $row['id']; ?>"><?php echo $row['stored_date']; ?></option>
+    <?php endwhile;?>
+    </select>
+    <input type="hidden" name="timetableId" id="timetableId" value="">
+    <input class="btn-sm btn-primary a-btn-slide-text" style="width:80px;margin-left:20px" type="submit" value="Search" onclick="submitForm()">
+    </div>
+    <script>
+        function submitForm() {
+        event.preventDefault(); // Prevents the default form submission behavior
+        var selectedDate = document.getElementById("dateSelector").value;
+        document.getElementById("timetableId").value = selectedDate;
+
+        // AJAX request
+        $.ajax({
+            type: 'POST',
+            url: 'retrive.php',
+            data: { timetableId: selectedDate },
+            success: function(response) {
+                console.log("AJAX request successful. Retrieving data...");
+                var timetableData = JSON.parse(response);
+                console.log(timetableData);
+                // You can handle the retrieved data here
+            },
+            error: function(error) {
+                console.log('Error: ' + error);
+            }
+        });
+    }
+    </script>
+    <?php goto skip;?>
+    </form>
         <form action="../index.php" name="back">
         <div style="float:left;" class="font-weight-bold text-right">
             <button style="width:80px;margin-top:17px;" class="btn-sm btn-primary a-btn-slide-text">
@@ -263,8 +292,6 @@ else{
             </button>
         </div>
         </form>
-        
-
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -275,37 +302,6 @@ else{
                         
                         </form>
                         
-                        <!--MODAL-------------------------------------------------------------------------------------------------------------------------->
-                            <form method="POST" action="update.php">
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit Hour</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Select faculty</label>
-                                        <select name="faculty" id="faculty" class="form-control" required>
-													<option value="">Select Faculty</option>
-										</select> 
-                                    </div> 
-                                              
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input type="hidden" name="timetableId" id="timetableIdField" value="">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Edit</button>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </form>
-                         <!------------------------------------------------------- end of modal --------------------------------------------------------------->
-                            
                         </tr>
                         </tbody>
                         </table>
@@ -349,10 +345,18 @@ else{
                                                                 
                                                             </tr>
                                                             <?php
-                                                            $daysofweek = array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
-                                                            foreach ($daysofweek as $day)
+                                                                if(isset($_GET['options'])) {
+                                                                    // Retrieve the options from the URL and decode the JSON string
+                                                                    $days = json_decode($_GET['options']);
+                                                                    $_SESSION['options'] = $days;
+                                                                }
+                                                                if(isset($_SESSION['options'])) {
+                                                                    $days = $_SESSION['options'];
+                                                                }
+                                                                $workingDays = array("1" => "Monday","2" => "Tuesday","3" => "Wednesday","4" => "Thursday","5" => "Friday","6" => "Saturday");
+                                                            foreach ($days as $day)
                                                             {
-                                                                $sql_timetable = "select * From tbl_timetable where day='$day' and bid=$bid"; //batch,day,hour, 
+                                                                $sql_timetable = "select * From tbl_timetable where day='$workingDays[$day]' and bid=$bid"; //batch,day,hour, 
                                                                 $timetable = $db->query($sql_timetable);
                                                                 if($timetable->num_rows>0) //1 or more records in the table
                                                                 {?>
@@ -377,7 +381,7 @@ else{
                                                                         } 
                                                                         if($subid==03)
                                                                         {
-                                                                            $subname = '-';
+                                                                            $subname = 'General Lab';
                                                                         }
                                                                         else
                                                                         {
@@ -396,10 +400,9 @@ else{
                                                                                 <!----------------- DISPLAY FACULTY----------------------------------------------->
                                                                         
                                                                                 <td data-target="#exampleModal" data-toggle="modal" 
-                                                                                data-cell-id="
-                                                                                <?php
-                                                                                    echo $timetable_row['id'];
-                                                                                ?>"  
+                                                                                data-cell-id="<?php echo $timetable_row['id'];?>"
+                                                                                data-hour-id="<?php echo (($timetable_row['id']-1)%6)+1;?>"
+                                                                                data-day-id="<?php echo (int)(($timetable_row['id']-1)/6)+1;?>"
                                                                                 style="justify-content:center; text-align:center;cursor:pointer" width="10%"
                                                                                 onMouseOver="this.style.backgroundColor='#f1f4f7'"  onMouseOut="this.style.backgroundColor='white'">
                                                                                 <?php 
@@ -438,71 +441,7 @@ else{
                                             </table> <?php
                                         } //END OF BATCH ROW
                                     }
-                            ?>
-                       
-                       
-            <script>
-                function generateUniqueId() {
-                    return 'id-' + new Date().getTime();
-                }
-                
-                //Attach a click event listener to all <td> elements
-                document.querySelectorAll('td[data-toggle="modal"]').forEach(function (td) {
-                    td.addEventListener('click', function () {
-                        // Get the value of the data-cell-id attribute from the clicked <td> element
-                        const cellId = this.getAttribute('data-cell-id');
-
-                        // Set the data-cell-id attribute in the modal form
-                        document.querySelector('#exampleModal').setAttribute('data-cell-id', cellId);
-
-                        // Trigger the modal
-                        $('#exampleModal').modal('show');
-
-                        // Load faculty data into the dropdown for the specific cell
-                        loadFacultyDropdown(cellId);
-                    });
-                });
-
-                // Function to load faculty data into the dropdown
-                function loadFacultyDropdown(cellId) {
-                // Get the timetableId value from the hidden input field
-                const timetableId = document.getElementById('timetableIdField').value;
-
-                // Get the selected cell's faculty dropdown element
-                const facultyDropdown = document.getElementById('faculty');
-                
-                
-                console.log('Cell ID:', cellId);
-
-                // Make an AJAX request to fetch faculty data for the specific cell
-                    $.ajax({
-                        type: 'POST',
-                        url: 'getdata.php', // Replace with the actual path to your PHP script
-                        data: {
-                            cellId: cellId
-                        },
-                        success: function (response) {
-                            // Update the content of the faculty dropdown with the fetched data
-                            console.log('Response:', response);
-                            facultyDropdown.innerHTML = response;
-                        },
-                        error: function (error) {
-                            console.log('Error: ' + error);
-                        }
-                    });
-                }
-
-                // Attach an event listener to the "Edit" button in the modal
-                document.querySelector('.modal-footer button[type="submit"]').addEventListener('click', function () {
-                    // Get the data-cell-id attribute from the modal form
-                    const cellId = document.querySelector('#exampleModal').getAttribute('data-cell-id');
-
-                    // Set the facultyId value in the hidden input field
-                    document.getElementById('timetableIdField').value = cellId;
-                });
-            </script>                
-						
-                
+                            ?>      
         </div>
     </div>
 </div>

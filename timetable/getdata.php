@@ -1,7 +1,8 @@
 <?php
 // Include your database connection file
 require "../class/db.php";
-
+session_start();
+if(isAdminLoggedIn());
 if (isset($_POST['cellId'])) {
     // Sanitize input values
     $cellId = mysqli_real_escape_string($db, $_POST['cellId']);

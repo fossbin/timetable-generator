@@ -3,10 +3,7 @@
 require "../class/db.php";
 session_start();
 
-if(!isset($_SESSION['adminid']))
-{
-    header("location: ../login.php");
-}
+if(isAdminLoggedIn());
 
 $value = $_GET['item'];
 $extract_id = explode(',' ,($_GET['checked']));

@@ -16,4 +16,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Update failed: " . $db->error;
     }
 }
-?>

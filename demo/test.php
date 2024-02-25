@@ -5,13 +5,7 @@ require "../class/db.php";
 
 session_start();
 
-if(isset($_SESSION['adminid']))
-{
-    //no need to do anything
-}
-else{
-    header("location: ../login.php");
-}
+if(isAdminLoggedIn());
 
 
 $sql_currentfaculty="Select fid from tbl_timetable where day!='Monday' and hour=1 and bid=5 UNION 

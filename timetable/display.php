@@ -1,16 +1,7 @@
 <?php
-
 require "../class/db.php";
-
 session_start();
-
-if(isset($_SESSION['adminid']))
-{
-    //no need to do anything
-}
-else{
-    header("location: ../login.php");
-}
+if(isAdminLoggedIn());
 
 ?>
 
@@ -455,7 +446,6 @@ else{
                        
                        
             <script>
-                
                 //Attach a click event listener to all <td> elements
                 document.querySelectorAll('td[data-toggle="modal"]').forEach(function (td) {
                     td.addEventListener('click', function () {
@@ -499,7 +489,7 @@ else{
                         });
                 }
 
-                // Attach an event listener to the "Edit" button in the modal
+                // Attach an event listener to the "Change" button in the modal
                 document.querySelector('.modal-footer button[type="submit"]').addEventListener('click', function () {
                     const cellId = document.querySelector('#exampleModal').getAttribute('data-cell-id');
                     document.getElementById('timetableIdField').value = cellId;

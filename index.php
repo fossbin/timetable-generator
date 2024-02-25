@@ -4,13 +4,7 @@ require "class/db.php";
 
 session_start();
 
-if(isset($_SESSION['adminid']))
-{
-    //no need to do anything
-}
-else{
-    header("location: ../login.php");
-}
+if(isAdminLoggedIn());
 
 //Reports
 

@@ -14,7 +14,7 @@ $serialized_data = serialize($data);
 
 //Inserting data into storage
 $stored_date = date('Y-m-d H:i:s'); //Present Date Time 
-$query = "INSERT INTO storage_system (stored_date, tbl_timetable_data) VALUES ('$stored_date', '$serialized_data')";
+$query = "INSERT INTO tbl_storage (stored_date, tbl_timetable_data) VALUES ('$stored_date', '$serialized_data')";
 if($db->query($query)==true){
     header("Location: display.php");
     exit;

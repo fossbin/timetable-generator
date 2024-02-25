@@ -2,10 +2,7 @@
 require "../class/db.php";
 session_start();
 
-if(!isset($_SESSION['adminid']))
-{
-    header("location: ../login.php");
-}
+if(isAdminLoggedIn());
 
 if(!empty($_POST["programid"]))
 {

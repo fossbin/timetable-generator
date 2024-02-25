@@ -1,5 +1,3 @@
-<link rel="icon" href="img/favicon.ico" type="image/x-icon" />
-
 <?php
 $db = new mysqli("localhost","root","","timetable");
 if($db->connect_error){
@@ -14,4 +12,3 @@ function isAdminLoggedIn(){
         exit();
     }
 }
-?>
