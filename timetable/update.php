@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "update tbl_timetable set fid ='$facultyId' where id ='$cellId'";
     //$sql2 = "update tbl_timetable set"
     if ($db->query($sql)==true) {
-
         header("Location: display.php");
         exit;
     } else {

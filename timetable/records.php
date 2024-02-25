@@ -220,7 +220,7 @@ else{
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
                                 <img class="img-profile rounded-circle"
-                                    src="../img/undraw_profile.svg">
+                                    src="../img/trace.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -249,17 +249,16 @@ else{
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header">
-
         <form action="../index.php" name="back">
         <div style="float:left;" class="font-weight-bold text-right">
-            <button style="width:80px" class="btn-sm btn-primary a-btn-slide-text">
+            <button style="width:80px;margin-top:17px;" class="btn-sm btn-primary a-btn-slide-text">
             <span style="width:400; font-size:14px;"><strong>Back</strong></span>
             </button>
         </div>
         </form>
         <form action="print.php" name="print">
         <div style="float:right;" class="font-weight-bold text-right">
-            <button style="width:80px" class="btn-sm btn-primary a-btn-slide-text">
+            <button style="width:80px;margin-top:0px;" class="btn-sm btn-primary a-btn-slide-text">
             <span style="width:400; font-size:14px;"><strong>Print</strong></span>
             </button>
         </div>
