@@ -4,8 +4,14 @@ session_start();
 if(isAdminLoggedIn());
 $sql_dates = "SELECT * FROM tbl_storage";
 $result_dates = $db->query($sql_dates);
-?>
+$timetableData=array();
+// Check if there is data received from the AJAX request
+if(isset($_POST['timetableData'])) {
+    // Retrieve the JSON string sent from JavaScript and convert it to PHP array
+    $timetableData = json_decode($_POST['timetableData'], true);
+}
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +35,48 @@ $result_dates = $db->query($sql_dates);
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <script type="text/javascript">
+        function setTimetableId() {
+        // Get the selected option value from the dropdown
+        var selectedDate = document.getElementById("dateSelector").value;
+        
+        // Set the value of the hidden input field to the selected date
+        document.getElementById("timetableId").value = selectedDate;
+    }
+    //     function submitForm() {
+    //     event.preventDefault(); // Prevents the default form submission behavior
+    //     var selectedDate = document.getElementById("dateSelector").value;
+    //     document.getElementById("timetableId").value = selectedDate;
+
+    //     // AJAX request
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: 'retrive.php',
+    //         data: { timetableId: selectedDate },
+    //         success: function(response) {
+    //             console.log("AJAX request successful. Retrieving data...");
+    //             var timetableData = JSON.parse(response);
+    //             console.log(timetableData);
+    //             // Pass the timetableData to PHP using another AJAX request
+    //             $.ajax({    
+    //                 type: 'POST',
+    //                 url:'history.php', 
+    //                 data: { timetableData: JSON.stringify(timetableData)}, // Send the data as JSON string
+    //                 success: function(response) {
+    //                     //console.log(response);
+    //                     console.log("Data sent to PHP successfully.");
+    //                     // You can handle the response from PHP if needed
+    //                     window.location.href = 'history.php';
+    //                 },
+    //                 error: function(error) {
+    //                     console.log('Error: ' + error);
+    //                 }   
+    //             });
+    //         },
+    //         error: function(error) {
+    //             console.log('Error: ' + error);
+    //         }
+    //     });
+    // }
     </script>
 
 
@@ -239,218 +287,39 @@ $result_dates = $db->query($sql_dates);
 <h1 class="h3 mb-2 text-gray-800 text-center">TIMETABLE</h1>
 
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-header">
-    <form name="timetableForm" method="POST" action="">
-    <div style="display: flex; align-items: center;">
-    <select id="dateSelector" class="form-control" style="width: min-content;">
-    <option value="">Select Date</option>
-    <?php 
-    while ($row = $result_dates->fetch_assoc()): ?>
-        <option value="<?php echo $row['id']; ?>"><?php echo $row['stored_date']; ?></option>
-    <?php endwhile;?>
-    </select>
-    <input type="hidden" name="timetableId" id="timetableId" value="">
-    <input class="btn-sm btn-primary a-btn-slide-text" style="width:80px;margin-left:20px" type="submit" value="Search" onclick="submitForm()">
-    </div>
-    <script>
-        function submitForm() {
-        event.preventDefault(); // Prevents the default form submission behavior
-        var selectedDate = document.getElementById("dateSelector").value;
-        document.getElementById("timetableId").value = selectedDate;
-
-        // AJAX request
-        $.ajax({
-            type: 'POST',
-            url: 'retrive.php',
-            data: { timetableId: selectedDate },
-            success: function(response) {
-                console.log("AJAX request successful. Retrieving data...");
-                var timetableData = JSON.parse(response);
-                console.log(timetableData);
-                // You can handle the retrieved data here
-            },
-            error: function(error) {
-                console.log('Error: ' + error);
-            }
-        });
-    }
-    </script>
-    <?php goto skip;?>
-    </form>
-        <form action="../index.php" name="back">
+    <div class="card shadow mb-4">
+        <div class="card-header">
+        <form action="../index.php" name="home">
         <div style="float:left;" class="font-weight-bold text-right">
-            <button style="width:80px;margin-top:17px;" class="btn-sm btn-primary a-btn-slide-text">
-            <span style="width:400; font-size:14px;"><strong>Back</strong></span>
+            <button style="width:80px;margin-top:5px;margin-right:20px;" class="btn-sm btn-primary a-btn-slide-text">
+            <span style="width:400; font-size:14px;"><strong>Home</strong></span>
             </button>
         </div>
         </form>
-        <form action="print.php" name="print">
-        <div style="float:right;" class="font-weight-bold text-right">
-            <button style="width:80px;margin-top:0px;" class="btn-sm btn-primary a-btn-slide-text">
-            <span style="width:400; font-size:14px;"><strong>Print</strong></span>
-            </button>
+        <form name="timetableForm" method="POST" action="retrive.php">
+            <div style="display: flex; align-items: center;">
+            <select id="dateSelector" class="form-control" style="width:fit-content;padding-left:20px;">
+            <option value="">Select Date</option>
+            <?php 
+            while ($row = $result_dates->fetch_assoc()): ?>
+                <option value="<?php echo $row['id']; ?>"><?php echo $row['stored_date']; ?></option>
+            <?php endwhile;?>
+            </select>
+            <input type="hidden" name="timetableId" id="timetableId" value="">
+            <input class="btn-sm btn-primary a-btn-slide-text" style="width:80px;margin-left:20px" type="submit" value="Search" onclick="setTimetableId()">
+            </div>
+        </form>         
         </div>
-        </form>
-    </div>
     <div class="card-body">
         <div class="table-responsive">
-            
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <tbody>
-                        <tr>
-                        
-                        </form>
-                        
-                        </tr>
-                        </tbody>
-                        </table>
-                            <!-- Hours -->
-                            <?php
-                                    $sql_batches = "select distinct(bid) from tbl_timetable";
-                                    $batches = $db->query($sql_batches);
-                                    if($batches->num_rows>0)
-                                    {
-                                        while($rowdata = $batches->fetch_assoc()) //each batch
-                                        {?>
-                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <tbody>
-                                            <tr>
-                                                <td colspan="8" class="text-center" style="background-color:#043565;">
-                                                <span  class="text-center" style="font-weight:800; font-size:large; color:white; ">
-                                                
-                                                <?php
-                                                        
-                                                        $bid = $rowdata['bid'];
-                                                        $sql_batchname = "Select bName from tbl_batch where bid=$bid";
-                                                        $batchname = $db->query($sql_batchname);
-                                                        if($batchname->num_rows>0)
-                                                        {
-                                                            while($batchname_row = $batchname->fetch_assoc())
-                                                            {
-                                                                $bname = $batchname_row['bName'];
-                                                            
-                                                                echo $bname; ?>
-                                                                </span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="background-color:#EDF7F6;">
-                                                                <th style="text-align:center;width:1px"><b>Day</b></th>
-                                                                <th style="text-align:center;width:1px"><b>Hour 1</b></th>
-                                                                <th style="text-align:center;"><b>Hour 2</b></th>
-                                                                <th style="text-align:center;"><b>Hour 3</b></th>
-                                                                <th style="text-align:center;"><b>Hour 4</b></th>
-                                                                <th style="text-align:center;"><b>Hour 5</b></th>
-                                                                <th style="text-align:center;"><b>Hour 6</b></th>
-                                                                
-                                                            </tr>
-                                                            <?php
-                                                                if(isset($_GET['options'])) {
-                                                                    // Retrieve the options from the URL and decode the JSON string
-                                                                    $days = json_decode($_GET['options']);
-                                                                    $_SESSION['options'] = $days;
-                                                                }
-                                                                if(isset($_SESSION['options'])) {
-                                                                    $days = $_SESSION['options'];
-                                                                }
-                                                                $workingDays = array("1" => "Monday","2" => "Tuesday","3" => "Wednesday","4" => "Thursday","5" => "Friday","6" => "Saturday");
-                                                            foreach ($days as $day)
-                                                            {
-                                                                $sql_timetable = "select * From tbl_timetable where day='$workingDays[$day]' and bid=$bid"; //batch,day,hour, 
-                                                                $timetable = $db->query($sql_timetable);
-                                                                if($timetable->num_rows>0) //1 or more records in the table
-                                                                {?>
-                                                
-                                                                <tr style="background-color:white">
-                                                                    <!----------------- DISPLAY DAY ----------------------------------------------->
-                                                                    <td style="background-color:#EDF7F6;justify-content:center; text-align:center; color:grey; font-weight:600" width=7%><?php echo $day?></td>
-                                                                <?php
-                                                                    while($timetable_row = $timetable->fetch_assoc())
-                                                                    {
-                                                                        $hour = $timetable_row['hour'];
-                                                                        $subid = $timetable_row['subid'];
-                                                                        $fid = $timetable_row['fid'];
 
-                                                                        if($subid==01)
-                                                                        {
-                                                                            $subname = 'Library';
-                                                                        }
-                                                                       if($subid==02)
-                                                                        {
-                                                                            $subname = 'Mentoring';
-                                                                        } 
-                                                                        if($subid==03)
-                                                                        {
-                                                                            $subname = 'General Lab';
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            $sql_subject = "select subname from tbl_subject where subid=$subid";
-                                                                            $subject = $db->query($sql_subject);
-                                                                            if($subject->num_rows>0)
-                                                                            {
-                                                                                while($subject_row = $subject->fetch_assoc())
-                                                                                {
-                                                                                    $subname = $subject_row['subname'];
-                                                                                }
-                                                                            }
-                                                                        }    
-                                                                
-                                                                ?>
-                                                                                <!----------------- DISPLAY FACULTY----------------------------------------------->
-                                                                        
-                                                                                <td data-target="#exampleModal" data-toggle="modal" 
-                                                                                data-cell-id="<?php echo $timetable_row['id'];?>"
-                                                                                data-hour-id="<?php echo (($timetable_row['id']-1)%6)+1;?>"
-                                                                                data-day-id="<?php echo (int)(($timetable_row['id']-1)/6)+1;?>"
-                                                                                style="justify-content:center; text-align:center;cursor:pointer" width="10%"
-                                                                                onMouseOver="this.style.backgroundColor='#f1f4f7'"  onMouseOut="this.style.backgroundColor='white'">
-                                                                                <?php 
-                                                                                echo $subname;?> <br>
-                                                                                <?php
-
-                                                                                if($subid==01){
-                                                                                $faculty_sql= "select * from tbl_activity where fid=01";
-                                                                                } 
-                                                                                else{
-                                                                                $faculty_sql = "select * from tbl_faculty where fid in (select fid from tbl_timetable where subid=$subid)";
-                                                                                }
-                                                                                if($subid!=2 and $subid!=3)
-                                                                                {
-                                                                                $faculty_name = $db->query($faculty_sql);
-                                                                                while($fName = $faculty_name->fetch_assoc())
-                                                                                $faculty = $fName['fName'];
-                                                                                ?>
-                                                                                <span style="color:#043565"><?php echo "(".$faculty.")"; ?></span></td><?php
-
-                                                                             }?>
-                                                                        <?php        
-                                                                            // }
-                                                                        // }
-                                                                        }
-                                                                    }
-                                                                }
-                                                                ?>
-                                                                </tr> 
-                                                                <?php
-                                                            }
-                                                        } 
-                                                    ?> 
-                                            
-                                            </tbody>
-                                            </table> <?php
-                                        } //END OF BATCH ROW
-                                    }
-                            ?>      
         </div>
     </div>
 </div>
 
 </div>
 <!-- /.container-fluid -->
-
 </div>
-            <!-- End of Main Content -->
 
             <!-- Footer -->
             <footer class=" sticky-footer bg-white ">
