@@ -9,9 +9,17 @@ class PDF extends FPDF
         $this->SetFont('Arial', 'B', 16);
         $this->Cell(0, 10, 'Timetable', 0, 1, 'C');
 
-        $this->Cell(30, 10, 'Column 1', 1);
-        $this->Cell(30, 10, 'Column 2', 1);
-        $this->Cell(30, 10, 'Column 3', 1);
+        $margin = 10; 
+        $this->setX($margin);
+
+        $this->Cell(0,10,'IMCA B6',0,1,'C');
+        $this->Cell(31, 10, 'Hour 1', 1,0,'C');
+        $this->Cell(31, 10, 'Hour 2', 1,0,'C');
+        $this->Cell(31, 10, 'Hour 3', 1,0,'C');
+        $this->Cell(31, 10, 'Hour 4', 1,0,'C');
+        $this->Cell(31, 10, 'Hour 5', 1,0,'C');
+        $this->Cell(31, 10, 'Hour 6', 1,0,'C');
+        
         $this->Ln(); // Move to the next line after the header row
     }
 }

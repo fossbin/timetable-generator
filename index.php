@@ -273,7 +273,7 @@ D5FFF3
                                     </a>
                                 </div>
                                 <div class="mr-2">
-                                    <a href="timetable/display.php" class="btn btn-md btn-primary shadow-sm">
+                                    <a class="btn btn-md btn-primary shadow-sm" onclick="redirectToDisplay()">
                                     <i class="fas fa-file fa-sm text-white-50"></i> 
                                     <span>View Timetable</span>
                                     </a>
@@ -288,28 +288,62 @@ D5FFF3
                     </div>
                     <div class="">
                         <div class="form-group">
-                            <div style="width:40%"><label style="margin-left:20px;" class="column">Working Days (Use ctrl to select)</label></div>
-                            <select id="options" name="daysOfWeek" class="form-control" style="width:20%; margin-left: 20px;" multiple required>
-                                <option value=1>Monday</option>
-                                <option value=2>Tuesday</option>
-                                <option value=3>Wednesday</option>
-                                <option value=4>Thursday</option>
-                                <option value=5>Friday</option>
-                                <option value=6>Saturday</option>
-                            </select>
+                            <div style="width:40%; margin-left:15px;margin-bottom:10px;"><h1 class="h3 mb-0 text-gray-800" style>Working Days</h1></div>
+                                <div class="days-container" style="display: flex; flex-wrap: wrap; margin-left:10px;">
+                                <div class="day-item">
+                                    <input type="checkbox" id="option1" name="days" value="1" style="margin-left:10px;">
+                                    <label for="option1">Monday</label>
+                                </div>
+                                <div class="day-item">
+                                    <input type="checkbox" id="option2" name="days" value="2" style="margin-left:10px;">
+                                    <label for="option2">Tuesday</label>
+                                </div>
+                                <div class="day-item">
+                                    <input type="checkbox" id="option3" name="days" value="3" style="margin-left:10px;">
+                                    <label for="option3">Wednesday</label>
+                                </div>
+                                <div class="day-item">
+                                    <input type="checkbox" id="option4" name="days" value="4" style="margin-left:10px;">
+                                    <label for="option4">Thursday</label>
+                                </div>
+                                <div class="day-item">
+                                    <input type="checkbox" id="option5" name="days" value="5" style="margin-left:10px;">
+                                    <label for="option5">Friday</label>
+                                </div>
+                                <div class="day-item">
+                                    <input type="checkbox" id="option6" name="days" value="6" style="margin-left:10px;" >
+                                    <label for="option6">Saturday</label>
+                            </div>
                         </div>
                     </div>
                     <script>
-                    function redirectToTarget() {
-                        var selectedOptions = [];
-                        var selectElement = document.getElementById("options");
-                        for (var i = 0; i < selectElement.options.length; i++) {
-                            if (selectElement.options[i].selected) {
-                                selectedOptions.push(selectElement.options[i].value);
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Check localStorage for previously selected options
+                            var selectedOptions = JSON.parse(localStorage.getItem('selectedOptions'));
+                            if (selectedOptions) {
+                                selectedOptions.forEach(function(option) {
+                                    document.getElementById('option' + option).checked = true;
+                                });
                             }
+                        });
+
+                        function redirectToTarget() {
+                            var selectedOptions = [];
+                            document.querySelectorAll('input[name="days"]:checked').forEach(function(checkbox) {
+                                selectedOptions.push(checkbox.value);
+                            });
+                            localStorage.setItem('selectedOptions', JSON.stringify(selectedOptions));
+                            window.location.href = 'timetable/algorithm.php?options=' + JSON.stringify(selectedOptions);
                         }
-                        window.location.href = 'timetable/algorithm.php?options=' + JSON.stringify(selectedOptions);
-                    }
+
+                        function redirectToDisplay() {
+                            var selectedOptions = [];
+                            document.querySelectorAll('input[name="days"]:checked').forEach(function(checkbox) {
+                                selectedOptions.push(checkbox.value);
+                            });
+                            localStorage.setItem('selectedOptions', JSON.stringify(selectedOptions));
+                            window.location.href = 'timetable/display.php?options=' + JSON.stringify(selectedOptions);
+                        }
                     </script>
                     <div>
                         <?php  
@@ -465,7 +499,7 @@ D5FFF3
             <footer class="sticky-footer bg-white ">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SSTM 2023</span>
+                        <span>Copyright &copy; SSTM 2024</span>
                     </div>
                 </div>
             </footer>

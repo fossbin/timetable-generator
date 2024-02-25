@@ -46,6 +46,8 @@ if ($batches->num_rows > 0) {
         if(isset($_GET['options'])) {
             // Retrieve the options from the URL and decode the JSON string
             $days = json_decode($_GET['options']);
+            $_SESSION['options'] = $days;
+
         }    
         $workingDays = array("1" => "Monday","2" => "Tuesday","3" => "Wednesday","4" => "Thursday","5" => "Friday","6" => "Saturday");
 
@@ -56,19 +58,16 @@ if ($batches->num_rows > 0) {
         //     //label to check for library
         // else
         //     $asd;//ignore library requirement and only provide in case of absence of a teacher
-        
 
 
         foreach ($days as $day) {
             //while($day<=6){
                 $subject_index = $day - 1;
-                echo $subject_index . " Subject index at day " . $day . "|";
                 $hour = 1;
                 $dayOfWeek = $workingDays[$day];
 
 
                 while ($hour <= 6) {
-                    echo $subject_index . " At HOur " . $hour . "|";
                     // Check if there are hours remaining for any subject
                     $isRemainingHours = 0; // false
                     foreach ($subjectHourCount as $count) {
@@ -142,15 +141,12 @@ if ($batches->num_rows > 0) {
                         allocate general lab. The loop variable is used to track how many times the array has been gone through.
                         Without this variable, the algorithm may result in an infinite loop. */
                         restart:  
-                        //echo $loop ."\n";   
                         if($subject_index > $total_subjects - 1) { //0 to 6 for 7 subjects
-                            echo $subject_index . "Error Subject INdex |";
                             $subject_index = $subject_index % $total_subjects; //to go in circular fashion in array
                         } 
 
                         // Selecting subject
                         $currentSubjectid = $subjects[$subject_index];
-                        //echo $currentSubjectid; //unnecessary echo statement
 
                         // Select faculty for the subject
                         $fid = $db->query("Select fid from tbl_allocation where subid=$currentSubjectid");
@@ -238,7 +234,14 @@ if ($batches->num_rows > 0) {
                             $subjectHourCount[$subject_index] = $subjectHourCount[$subject_index] - 2;
                             $hour= $hour + 2;
                         }
-                        
+                        /*Taking into consideration that practical subjects require 2 adjacent hours, there comes a necessity 
+                        to skip the period entirely due to unavailability of faculty or adjacent 2 hours. This is later substituted with General Lab
+                        */
+                        else { 
+                            $subject_index++;
+                            $loop++;
+                            goto restart;
+                        }
                         $subject_index++;
                     }
                 }
