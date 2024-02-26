@@ -16,7 +16,7 @@ $serialized_data = serialize($data);
 $stored_date = date('Y-m-d H:i:s'); //Present Date Time 
 $query = "INSERT INTO tbl_storage (stored_date, tbl_timetable_data) VALUES ('$stored_date', '$serialized_data')";
 if($db->query($query)==true){
-    echo "<script>alert('TimeTable Inserted'); window.location.href = 'display.php';</script>";
+    echo "<script>alert('Timetable Successfully Saved'); window.location.href = 'display.php';</script>";
     //header("Location: display.php");
     exit;
 } else {
