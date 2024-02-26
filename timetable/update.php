@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result=$db->query($sql);
     while($bid=$result->fetch_assoc())
     $sql1 = "update tbl_timetable set fid ='$facultyId' where id ='$cellId'";
-    $sql2 = "update tbl_timetable set subid=(select subid from tbl_allocation where fid='$facultyId' and bid='$bid') where id='$cellId'";
+    $sql2 = "update tbl_timetable set subid=(select subid from tbl_allocation where fid='$facultyId' and bid='$bid' LIMIT 1) where id='$cellId'";
     if (($db->query($sql1)==true) && ($db->query($sql2)==true)) {
         header("Location: display.php");
         exit;

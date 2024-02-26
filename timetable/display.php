@@ -243,7 +243,7 @@ if(isAdminLoggedIn());
 
         <form action="../index.php" name="back">
         <div style="float:left;" class="font-weight-bold text-right">
-            <button style="width:80px;margin-top:17px;" class="btn-sm btn-primary a-btn-slide-text">
+            <button style="width:80px;margin-top:0px;" class="btn-sm btn-primary a-btn-slide-text">
             <span style="width:400; font-size:14px;"><strong>Back</strong></span>
             </button>
         </div>
