@@ -15,7 +15,7 @@ if(isset($_SESSION['timetableData'])) {
     $timetableData = json_decode($_SESSION['timetableData'], true);
 }
 function checkPrevB($newValue){
-    if(!isset($_SESSION['previous'])){
+    if(!isset($_SESSION['previousB'])){
         $_SESSION['previousB']=$newValue;
         return false; 
     } else if ($newValue==$_SESSION['previousB']) {
