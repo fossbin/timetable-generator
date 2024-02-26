@@ -21,8 +21,10 @@ if (isset($_POST['cellId'])) {
     if ($bidResult && $bidRow = $bidResult->fetch_assoc()) {
         // Extract bid from the result
         $bid = $bidRow['bid'];
-        $sql = "SELECT * FROM tbl_faculty WHERE fid IN (SELECT fid FROM tbl_allocation WHERE bid=$bid) INTERSECT SELECT * from tbl_faculty where fid in (Select fid from tbl_timetable where day='$workingDays[$day]' and hour=$hour and bid!=$bid)";
+        $sql = "SELECT * FROM tbl_faculty WHERE fid IN (SELECT fid FROM tbl_allocation WHERE bid=$bid) and fid in (Select fid from tbl_timetable where day='$workingDays[$day]' and hour=$hour and bid!=$bid)";
+        var_dump($sql);
         $result = $db->query($sql);
+        var_dump($result);
         // Check if there are results
         if ($result->num_rows>0) {
             // Output data as options for the dropdown

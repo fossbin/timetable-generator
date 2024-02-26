@@ -403,7 +403,7 @@ if(isAdminLoggedIn());
                                                                                 <td data-target="#exampleModal" data-toggle="modal" 
                                                                                 data-cell-id="<?php echo $timetable_row['id'];?>"
                                                                                 data-hour-id="<?php echo (($timetable_row['id']-1)%6)+1;?>"
-                                                                                data-day-id="<?php echo (int)(($timetable_row['id']-1)/6)+1;?>"
+                                                                                data-day-id="<?php echo $day;?>"
                                                                                 style="justify-content:center; text-align:center;cursor:pointer" width="10%"
                                                                                 onMouseOver="this.style.backgroundColor='#f1f4f7'"  onMouseOut="this.style.backgroundColor='white'">
                                                                                 <?php 
