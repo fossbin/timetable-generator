@@ -5,20 +5,23 @@ if(isAdminLoggedIn());
 $sql_dates = "SELECT * FROM tbl_storage";
 $result_dates = $db->query($sql_dates);
 $timetableData=array();
+
+//unset($_SESSION['previousB']);
+unset($_SESSION['previousD']);
+
 // Check if there is data received from the AJAX request
 if(isset($_SESSION['timetableData'])) {
-    $flag=1;
     // Retrieve the JSON string sent from JavaScript and convert it to PHP array
-    $timetableData = json_decode($_POST['timetableData'], true);
+    $timetableData = json_decode($_SESSION['timetableData'], true);
 }
-function checkPrev($newValue){
+function checkPrevB($newValue){
     if(!isset($_SESSION['previous'])){
-        $_SESSION['previous']=$newValue;
+        $_SESSION['previousB']=$newValue;
         return false; 
-    } else if ($newValue==$_SESSION['previous']) {
+    } else if ($newValue==$_SESSION['previousB']) {
         return true;
-    } else if($newValue!=$_SESSION['previous']){
-        $_SESSION['previous']=$newValue;
+    } else if($newValue!=$_SESSION['previousB']){
+        $_SESSION['previousB']=$newValue;
         return false;
     }
 }
@@ -296,9 +299,15 @@ function checkPrevD($newValue){
                         </tr>
                         </tbody>
                         </table>
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <tbody>
+                                            
                             <!-- Hours -->
                             <?php
-                                    foreach($timetableData as $entry){
+                                //print_r($timetableData);
+                                    foreach($timetableData as $entry)
+                                    {
+                                            $hourcount;
                                             $id=$entry['id'];
                                             $bid=$entry['bid'];
                                             $semid=$entry['semid'];
@@ -306,24 +315,22 @@ function checkPrevD($newValue){
                                             $hour=$entry['hour'];
                                             $subid=$entry['subid'];
                                             $fid=$entry['fid'];
-                                        ?>
-                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <tbody>
-                                            <tr>
-                                                <td colspan="8" class="text-center" style="background-color:#043565;">
-                                                <span  class="text-center" style="font-weight:800; font-size:large; color:white; ">
-                                                
-                                                <?php
+
+                                            //echo $id." ".$bid." ".$semid." ".$day." ".$hour." ".$subid." ".$fid;
                                                         $sql_batchname = "Select bName from tbl_batch where bid=$bid";
                                                         $batchname = $db->query($sql_batchname);
                                                         if($batchname->num_rows>0)
                                                         {
                                                             while($batchname_row = $batchname->fetch_assoc())
                                                             {
-                                                                if(checkPrev($bid))
+                                                                if(checkPrevB($bid))
                                                                     break;
-                                                                else 
-                                                                $bname = $batchname_row['bName'];   
+                                                                else{ 
+                                                                $bname = $batchname_row['bName'];
+                                ?><tr>
+                                    <td colspan="8" class="text-center" style="background-color:#043565;">
+                                    <span  class="text-center" style="font-weight:800; font-size:large; color:white; ">
+                                <?php    
                                                                 echo $bname; 
                                                                 ?>
                                                                 </span>
@@ -339,39 +346,28 @@ function checkPrevD($newValue){
                                                                 <th style="text-align:center;"><b>Hour 6</b></th>
                                                             </tr>
                                                 <?php           
+                                                                }
                                                             }
                                                         }
                                                 ?>
-                                                            <!-- <?php
-                                                                // if(isset($_GET['options'])) { -->
-                                                                //     // Retrieve the options from the URL and decode the JSON string
-                                                                //     $days = json_decode($_GET['options']);
-                                                                //     $_SESSION['options'] = $days;
-                                                                // }
-                                                                // if(isset($_SESSION['options'])) {
-                                                                //     $days = $_SESSION['options'];
-                                                                // }
-                                                                // $workingDays = array("1" => "Monday","2" => "Tuesday","3" => "Wednesday","4" => "Thursday","5" => "Friday","6" => "Saturday");
-                                                            // foreach ($days as $day)
-                                                            // {
-                                                                // $sql_timetable = "select * From tbl_timetable where day='$workingDays[$day]' and bid=$bid"; //batch,day,hour, 
-                                                                // $timetable = $db->query($sql_timetable);
-                                                                // if($timetable->num_rows>0) //1 or more records in the table
-                                                                // {?>
-                                                
-                                                                <tr style="background-color:white">
                                                                     <!----------------- DISPLAY DAY ----------------------------------------------->
-                                                                    <td style="background-color:#EDF7F6;justify-content:center; text-align:center; color:grey; font-weight:600" width=7%>
                                                                         <?php
                                                                             if(checkPrevD($day)) 
-                                                                                break;
-                                                                            else 
+                                                                                goto skip1;
+                                                                            else {
+                                                                    ?>
+                                                                    <tr style="background-color:white">
+                                                                    <td style="background-color:#EDF7F6;justify-content:center; text-align:center; color:grey; font-weight:600" width=7%>
+                                                                    <?php
+                                                                                $hourcount=0;
                                                                                 echo $day;
+                                                                            }
                                                                         ?>
                                                                     </td>
                                                 <?php
                                                     // while($timetable_row = $timetable->fetch_assoc())
                                                     // {
+                                                        skip1:
                                                             if($subid==01)
                                                             {
                                                                 $subname = 'Library';
@@ -403,7 +399,9 @@ function checkPrevD($newValue){
                                                                                 <td style="justify-content:center; text-align:center;cursor:pointer" width="10%"
                                                                                 onMouseOver="this.style.backgroundColor='#f1f4f7'"  onMouseOut="this.style.backgroundColor='white'">
                                                                                 <?php 
-                                                                                echo $subname;?> <br>
+                                                                                echo $subname;
+                                                                                $hourcount++;
+                                                                                ?> <br>
                                                                                 <?php
                                                                                     if($subid==01){
                                                                                         $faculty_sql= "select * from tbl_activity where fid=01";
@@ -422,22 +420,14 @@ function checkPrevD($newValue){
                                                                                     }
                                                                                 ?>
                                                                         <?php        
-                                                                         // }
-                                                                        // }
-                                                                    //    }
-                                                                //    }
-                                                            //    }
-                                                                ?>
-                                                                </tr> 
-                                                                <?php
+                                                                   if($hourcount==6){?>
+                                                                        </tr> 
+                                                                <?php }
                                                             }
                                                     ?> 
                                             
                                             </tbody>
                                             </table> 
-                                            <!-- <?php 
-                                            //END OF BATCH ROW
-                            ?>     -->
         </div>
     </div>
 </div>

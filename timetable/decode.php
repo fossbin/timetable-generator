@@ -2,6 +2,7 @@
 require "../class/db.php";
 session_start();
 if(isAdminLoggedIn());
+
 // Check if data is sent via POST request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the 'timetableData' key exists in the POST data

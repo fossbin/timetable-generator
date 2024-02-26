@@ -42,41 +42,6 @@ if(isset($_POST['timetableData'])) {
         // Set the value of the hidden input field to the selected date
         document.getElementById("timetableId").value = selectedDate;
     }
-    //     function submitForm() {
-    //     event.preventDefault(); // Prevents the default form submission behavior
-    //     var selectedDate = document.getElementById("dateSelector").value;
-    //     document.getElementById("timetableId").value = selectedDate;
-
-    //     // AJAX request
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: 'retrive.php',
-    //         data: { timetableId: selectedDate },
-    //         success: function(response) {
-    //             console.log("AJAX request successful. Retrieving data...");
-    //             var timetableData = JSON.parse(response);
-    //             console.log(timetableData);
-    //             // Pass the timetableData to PHP using another AJAX request
-    //             $.ajax({    
-    //                 type: 'POST',
-    //                 url:'history.php', 
-    //                 data: { timetableData: JSON.stringify(timetableData)}, // Send the data as JSON string
-    //                 success: function(response) {
-    //                     //console.log(response);
-    //                     console.log("Data sent to PHP successfully.");
-    //                     // You can handle the response from PHP if needed
-    //                     window.location.href = 'history.php';
-    //                 },
-    //                 error: function(error) {
-    //                     console.log('Error: ' + error);
-    //                 }   
-    //             });
-    //         },
-    //         error: function(error) {
-    //             console.log('Error: ' + error);
-    //         }
-    //     });
-    // }
     </script>
 
 
