@@ -412,6 +412,8 @@ if(isAdminLoggedIn());
 
                                                                                 if($subid==01){
                                                                                 $faculty_sql= "select * from tbl_activity where fid=01";
+                                                                                // $faculty_sql= "select * from tbl_activity where fid=01";
+
                                                                                 } 
                                                                                 else{
                                                                                 $faculty_sql = "select * from tbl_faculty where fid in (select fid from tbl_timetable where subid=$subid)";
