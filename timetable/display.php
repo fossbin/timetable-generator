@@ -248,13 +248,24 @@ if(isAdminLoggedIn());
             </button>
         </div>
         </form>
-        <form action="print.php" name="print">
+        <!-- <form action="" name="print"> -->
         <div style="float:right;" class="font-weight-bold text-right">
-            <button style="width:80px;margin-top:0px;" class="btn-sm btn-primary a-btn-slide-text">
+            <button onclick="window.print();" style="width:80px;margin-top:0px;" class="btn-sm btn-primary a-btn-slide-text">
             <span style="width:400; font-size:14px;"><strong>Print</strong></span>
             </button>
+            <style>
+                @media print {
+                @page {
+                    /* size: A4; */
+                    margin: 0.2cm;
+                }
+                body {
+                    transform-origin: 0 0; /* Set scaling origin */
+                }
+                }
+            </style>
         </div>
-        </form>
+        <!-- </form> -->
         <form action="store.php" name="store">
         <div style="float:right;margin-right:20px;" class="font-weight-bold text-right">
             <button style="width:80px;margin-top:0px;" class="btn-sm btn-primary a-btn-slide-text">
@@ -263,9 +274,9 @@ if(isAdminLoggedIn());
         </div>
         </form>
     </div>
+    <div id="printTable">
     <div class="card-body">
         <div class="table-responsive">
-            
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <tbody>
                         <tr>
@@ -497,8 +508,7 @@ if(isAdminLoggedIn());
                     document.getElementById('timetableIdField').value = cellId;
                 });
             </script>                
-						
-                
+            </div>      
         </div>
     </div>
 </div>

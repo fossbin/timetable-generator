@@ -49,7 +49,6 @@ function checkPrevD($newValue){
     <meta name="author" content="">
 
     <title>Timetable Management System</title>
-
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -279,9 +278,25 @@ function checkPrevD($newValue){
             </button>
         </div>
         </form>
+        <div style="float:right;" class="font-weight-bold text-right">
+            <button onclick="window.print();" style="width:80px;margin-top:15px;" class="btn-sm btn-primary a-btn-slide-text">
+            <span style="width:400; font-size:14px;"><strong>Print</strong></span>
+            </button>
+            <style>
+                @media print {
+                @page {
+                    /* size: A4; */
+                    margin: 0.2cm;
+                }
+                body {
+                    transform-origin: 0 0; /* Set scaling origin */
+                }
+                }
+            </style>
+        </div>
         <form action="../timetable/records.php" name="back">
         <div style="float:right;" class="font-weight-bold text-right">
-            <button style="width:80px;margin-top:15px;" class="btn-sm btn-primary a-btn-slide-text">
+            <button style="width:80px;margin-top:15px;margin-right:10px;" class="btn-sm btn-primary a-btn-slide-text">
             <span style="width:400; font-size:14px;"><strong>Back</strong></span>
             </button>
         </div>
@@ -304,7 +319,6 @@ function checkPrevD($newValue){
                                             
                             <!-- Hours -->
                             <?php
-                                //print_r($timetableData);
                                     foreach($timetableData as $entry)
                                     {
                                             $hourcount;
@@ -316,7 +330,6 @@ function checkPrevD($newValue){
                                             $subid=$entry['subid'];
                                             $fid=$entry['fid'];
 
-                                            //echo $id." ".$bid." ".$semid." ".$day." ".$hour." ".$subid." ".$fid;
                                                         $sql_batchname = "Select bName from tbl_batch where bid=$bid";
                                                         $batchname = $db->query($sql_batchname);
                                                         if($batchname->num_rows>0)
