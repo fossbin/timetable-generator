@@ -69,6 +69,11 @@ if ($batches->num_rows > 0) {
 
                 while ($hour <= 6) {
                     // Check if there are hours remaining for any subject
+                    if($hour==4 && $dayOfWeek=="Friday"){
+                        $db->query("insert into tbl_timetable(bid,semid,day,hour,subid,fid) values ($bid,$semid,'$dayOfWeek',$hour,4,0)");
+                        $hour++;
+                        continue;
+                    }
                     $isRemainingHours = 0; // false
                     foreach ($subjectHourCount as $count) {
                         if ($count != 0) {

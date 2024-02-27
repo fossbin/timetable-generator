@@ -387,13 +387,16 @@ if(isAdminLoggedIn());
                                                                         {
                                                                             $subname = 'Library';
                                                                         }
-                                                                       if($subid==02)
+                                                                        if($subid==02)
                                                                         {
                                                                             $subname = 'Mentoring';
                                                                         } 
                                                                         if($subid==03)
                                                                         {
                                                                             $subname = 'General Lab';
+                                                                        }
+                                                                        if($subid== 04){
+                                                                            $subname = 'Break';    
                                                                         }
                                                                         else
                                                                         {
@@ -424,16 +427,15 @@ if(isAdminLoggedIn());
                                                                                 if($subid==01){
                                                                                 $faculty_sql= "select * from tbl_activity where fid=01";
                                                                                 // $faculty_sql= "select * from tbl_activity where fid=01";
-
                                                                                 } 
                                                                                 else{
                                                                                 $faculty_sql = "select * from tbl_faculty where fid in (select fid from tbl_timetable where subid=$subid)";
                                                                                 }
-                                                                                if($subid!=2 and $subid!=3)
+                                                                                if($subid!=2 and $subid!=3 and $subid!=4)
                                                                                 {
                                                                                 $faculty_name = $db->query($faculty_sql);
                                                                                 while($fName = $faculty_name->fetch_assoc())
-                                                                                $faculty = $fName['fName'];
+                                                                                    $faculty = $fName['fName'];
                                                                                 ?>
                                                                                 <span style="color:#043565"><?php echo "(".$faculty.")"; ?></span></td><?php
 
