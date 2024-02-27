@@ -84,7 +84,7 @@ if ($batches->num_rows > 0) {
 
                     //If no faculty is available or no more hours are needed for the subject, allot general lab
                     if ($isRemainingHours == 0) {
-                        $db->query("Insert into tbl_timetable(bid, semid, day, hour, subid, fid) values ($bid,$semid,'$dayOfWeek',$hour,3,0)");
+                        $db->query("Insert into tbl_timetable(bid, semid, day, hour, subid, fid) values ($bid,$semid,'$dayOfWeek',$hour,3,3)");
                         $hour++;
                         continue;
                     }
@@ -172,7 +172,7 @@ if ($batches->num_rows > 0) {
 
                         //Allocate GL when faculty is not available for all the subjects
                         if($loop>=$total_subjects) {
-                            $db->query("Insert into tbl_timetable(bid, semid, day, hour, subid, fid) values ($bid,$semid,'$dayOfWeek',$hour,3,0)");
+                            $db->query("Insert into tbl_timetable(bid, semid, day, hour, subid, fid) values ($bid,$semid,'$dayOfWeek',$hour,3,3)");
                             $hour++;
                             continue;
                         }
