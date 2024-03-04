@@ -31,7 +31,8 @@ if ($batches->num_rows > 0) {
             $subjects = array();
             while ($subject_row = $subject_list->fetch_assoc()) {
                 $subid = $subject_row['subid'];
-                $subjects[] = $subid;     
+                $subjects[] = $subid;  
+                shuffle($subjects);   
             }
         }
 
