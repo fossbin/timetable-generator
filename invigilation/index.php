@@ -344,8 +344,8 @@ if(isAdminLoggedIn());
                             <th style="text-align:center;width:1px"><b>Faculty</b></th>
                             <th style="text-align:center;"><b>Date</b></th>
                             <th style="text-align:center;"><b>Day</b></th>
-                            <th style="text-align:center;"><b>Status</b></th>
                             <th style="text-align:center;"><b>Session</b></th>
+                            <th style="text-align:center;"><b>Status</b></th>
                             <th style="text-align:center;"><b>Edit</b></th>
                             <th style="text-align:center;"><b>Delete</b></th>
                         

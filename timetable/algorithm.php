@@ -161,6 +161,32 @@ if ($batches->num_rows > 0) {
                                 $currentfid = $currentfidrow['fid'];
                             }
                         }
+                        $invigilation= $db->query("select * from tbl_invigilation where day='$dayOfWeek' and fid=$currentfid");
+                        //Retriving list of faculty alloted invigilation
+                        if($invigilation->num_rows>0){
+                            while($invigilationRow=$invigilation->fetch_assoc()){
+                                $invigFid=$invigilationRow['fid'];
+                                $invigSession=$invigilationRow['session'];
+
+                                if($invigSession=="Morning")
+                                {
+                                    if($hour>=1 && $hour<=3){
+                                        $subject_index = $subject_index + 1;
+                                        $loop += 1;
+                                        goto restart;
+                                    }
+                                }
+                                else if($invigSession=="Afternoon")
+                                {
+                                    if($hour>=4 && $hour<=6){
+                                        $subject_index =+ 1;
+                                        $loop += 1;
+                                        goto restart;
+                                    }
+                                }
+
+                            }
+                        }
 
                         // Select type and number of remaining hours of subject
                         $currentSubject = $db->query("Select subtype,subcount from tbl_subject where subid=$currentSubjectid");
@@ -181,12 +207,12 @@ if ($batches->num_rows > 0) {
                         // Theory Subject
                         else if ($subjectType == 1 && $subjectHours > 0 && $hour <= 6) {
 
-                            // Check if faculty is assigned elsewhere
+                            // Check if faculty is assigned elsewhere 
                             $assignedFaculty = $db->query("Select fid from tbl_timetable where day='$dayOfWeek' and hour=$hour and bid!=$bid");
                             if ($assignedFaculty->num_rows > 0) {
                                 while($assignedFacultyRow = $assignedFaculty->fetch_assoc()) {
                                     if($assignedFacultyRow['fid'] == $currentfid) {
-                                        $subject_index = $subject_index + 1;
+                                        $subject_index =+ 1;
                                         $loop += 1;
                                         goto restart;
                                     }
@@ -208,7 +234,7 @@ if ($batches->num_rows > 0) {
                             if ($assignedFaculty->num_rows > 0) {
                                 while ($assignedFacultyRow = $assignedFaculty->fetch_assoc()) {
                                     if ($assignedFacultyRow['fid'] == $currentfid) { 
-                                        $subject_index = $subject_index + 1;
+                                        $subject_index =+ 1;
                                         $loop++;
                                         goto restart;
                                     }
