@@ -179,7 +179,7 @@ if ($batches->num_rows > 0) {
 
                         // Theory Subject
                         else if ($subjectType == 1 && $subjectHours > 0 && $hour <= 6) {
-                            
+
                             // Check if faculty is assigned elsewhere
                             $assignedFaculty = $db->query("Select fid from tbl_timetable where day='$dayOfWeek' and hour=$hour and bid!=$bid");
                             if ($assignedFaculty->num_rows > 0) {
@@ -220,11 +220,17 @@ if ($batches->num_rows > 0) {
                             {
                                 $libraryHour = $libraryHour + 1;
                             }
+                            //Ensuring that lab hours are not allocated such that it interferes with afternoon break
+                            if($nextHour==4 && $dayOfWeek=="Friday"){
+                                $subject_index =+ 1;
+                                $loop++;
+                                goto restart;
+                            }
                             $assignedFaculty2 = $db->query("Select fid from tbl_timetable where day='$dayOfWeek' and hour=$nextHour and bid!=$bid");
                             if ($assignedFaculty2->num_rows > 0) {
                                 while ($assignedFacultyRow = $assignedFaculty2->fetch_assoc()) {
                                     if ($assignedFacultyRow['fid'] == $currentfid) {
-                                        $subject_index = $subject_index + 1;
+                                        $subject_index =+ 1;
                                         $loop++;
                                         goto restart;
                                     }
