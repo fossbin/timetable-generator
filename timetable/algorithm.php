@@ -23,7 +23,7 @@ if ($batches->num_rows > 0) {
         //$batch_counter++;  //Potential fix to arbitrarily assigned variable
 
         //fetch all subjects for that semester for the batch
-        $subject_list = $db->query("Select * from tbl_allocation where bid=$bid and semid=$semid");
+        $subject_list = $db->query("Select * from tbl_allocation where bid=$bid and semid=$semid ");
         $total_subjects = mysqli_num_rows($subject_list);
  
         //fetch the subject ids and store in an array
@@ -32,7 +32,7 @@ if ($batches->num_rows > 0) {
             while ($subject_row = $subject_list->fetch_assoc()) {
                 $subid = $subject_row['subid'];
                 $subjects[] = $subid;  
-                shuffle($subjects);   
+                //shuffle($subjects);   
             }
         }
 
