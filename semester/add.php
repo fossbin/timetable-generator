@@ -302,7 +302,7 @@
                                             <div class="form-group">
 												<label for="exampleInputEmail1">Select Semester</label>
                                                 <select name="sid" class="form-control" required>
-                                                <option>Select Semester</option>
+                                                <option value="">Select Semester</option>
                                                 <?php
                                                 for($i=1;$i<=10;$i++)
                                                 {
@@ -317,7 +317,7 @@
 											<div class="form-group">
 												<label for="exampleInputEmail1">Select Semester Name</label>
                                                 <select name="semName" class="form-control" required>
-                                                <option>Select Semester Name</option>
+                                                <option value="">Select Semester Name</option>
                                                 <?php
                                                 $semesters = array('One','Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten');
                                                 foreach ($semesters as $sem)

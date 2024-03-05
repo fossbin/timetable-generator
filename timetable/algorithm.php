@@ -10,7 +10,7 @@ $db->query("Delete from tbl_timetable");
 $db->query("Alter table tbl_timetable auto_increment=0");
 $db->query("Update tbl_subject set subcount=4"); //initializing subject count to 4 per week
 
-$batches = $db->query("Select * from tbl_batch where bStatus=1");
+$batches = $db->query("Select * from tbl_batch where bStatus=1 order by RAND()");
 
 if ($batches->num_rows > 0) {
     $batch_counter = 0;  //Unused variable thats assigned an arbitrary value 0 --fossbin

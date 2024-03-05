@@ -52,6 +52,10 @@ if(isAdminLoggedIn());
                 if(row[i].checked==true)
                 arr.push(row[i].value);
             }
+            if (arr.length === 0) {
+                alert("Please select at least one");
+                return; // Exit the function if none selected
+            }
             if(clickedid=='delete_multiple') {
                 if(confirm("Are you sure you want to delete?")==true)
                 window.location.href = "multiple-select.php?checked="+arr+"&item=delete";

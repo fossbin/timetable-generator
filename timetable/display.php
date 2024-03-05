@@ -319,7 +319,7 @@ if(isAdminLoggedIn());
                         </table>
                             <!-- Hours -->
                             <?php
-                                    $sql_batches = "select distinct(bid) from tbl_timetable";
+                                    $sql_batches = "select distinct(bid) from tbl_timetable order by bid ASC";
                                     $batches = $db->query($sql_batches);
                                     if($batches->num_rows>0)
                                     {
