@@ -11,27 +11,30 @@
 
 	if (isset($_POST["submit"]))
 	{
-            $bname = $_POST['bName'];
+            //End Date Calculation Based on Programme duration that maybe overriden due to falacies in whether a program could be completed.
+            // $bFrom=$_POST['bFrom'];
+            // $sql = "select semesters from tbl_program where pid=".$_POST['pName'];
+            // $res=$db->query($sql);
+            // if($res->num_rows>0)
+            //     while($row->fetch_assoc($res))
+            //         $years = floor($semesters / 2);
             
-           
-            
-                $sql = "insert into tbl_batch(bName) values('$bname')";
-                $sql = "insert into tbl_batch (bid,pid,bName,bFrom,bTo,bCurrentSem) VALUES ('".$_POST["bid"]."','".$_POST["pName"]."','".$_POST["bName"]."','".$_POST["bFrom"]."','".$_POST["bTo"]."','".$_POST["bCurrentSem"]."')";
-                if($db->query($sql) == TRUE)
-                { 
-                $_SESSION['msg'] = "Batch added successfully!";
-                header("location: index.php");
-                }
-                else
-                {  
-                ?> 
-                <script> alert("Error!!"); </script>
-                <?php
-                echo " ".$db->error; 
-                }
-            
-            
-       
+            // $end_date = clone $bFrom;
+            // $end_date->modify("+$years years");
+            // $end_date_formatted = $end_date->format("Y-m-d");
+            $sql1 = "insert into tbl_batch (bid,pid,bName,bFrom,bTo,bCurrentSem) VALUES ('".$_POST["bid"]."','".$_POST["pName"]."','".$_POST["bName"]."','".$_POST["bFrom"]."','".$_POST["bTo"]."','".$_POST["bCurrentSem"]."')";
+            if($db->query($sql1) == TRUE)
+            { 
+            $_SESSION['msg'] = "Batch added successfully!";
+            header("location: index.php");
+            }
+            else
+            {  
+            ?> 
+            <script> alert("Error!!"); </script>
+            <?php
+            echo " ".$db->error; 
+            }  
 	}
 ?>
 <!DOCTYPE html>
