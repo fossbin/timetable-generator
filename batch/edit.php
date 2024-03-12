@@ -31,10 +31,7 @@
     
 	if (isset($_POST["submit"]))
 	{    
-            
-
             $newpid=$_POST['pName'];
-            
             $newbName=$_POST['bName'];
             $newbFrom=$_POST['bFrom'];
             $newbTo=$_POST['bTo'];

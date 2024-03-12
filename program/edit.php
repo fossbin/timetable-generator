@@ -1,13 +1,7 @@
 <?php 
-	error_reporting(0);
-	session_start();
-	
 	require "../class/db.php";
-
-    if(!isset($_SESSION['adminid'])) 
-    {
-        header("location: ../login.php");
-    }
+	session_start();
+    if(isAdminLoggedIn());
 
 	if (isset($_POST["submit"]))
 	{
@@ -15,21 +9,8 @@
         { 
             $pname_new = $_POST['pName'];
             $totalsem = $_POST['semesters'];
-            
-            //if name already exists print error message else insert
-            // $sql_select = "select * from tbl_program where pName='$pname_new'";
-            // $result = $db->query($sql_select);
-            // if($result->num_rows)
-            // {
-            //     ?> 
-                 <!-- <script> alert("Program name already exists!"); </script> -->
-                  <?php
-                
-            // }
-            // else
-            // {
-                $pname = $_GET['pname'];
-                $sql = "update tbl_program set pName = '$pname_new', semesters = $totalsem where pName = '$pname'";
+            $pid = $_GET['pid'];
+                $sql = "UPDATE tbl_program set pName = '$pname_new',semesters=$totalsem where pid =$pid";
                 if($db->query($sql) == TRUE)
                 { 
                 $_SESSION['msg'] = "Programme updated successfully!";
@@ -296,12 +277,12 @@
 										<form action="" method="POST">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Enter Programme</label>
-                                                <input type="text" autofocus name="pName" class="form-control" required value="<?php echo $_GET['pname']; ?>" />
+                                                <input type="text" autofocus name="pName" class="form-control" required value="<?php echo isset($_GET['pname']) ? htmlspecialchars($_GET['pname']) : ''; ?>" />
 											</div>
                                             <div class="form-group">
 												<label for="exampleInputEmail1">Enter Total Semesters</label>
                                                 <select name="semesters" class="form-control" required>
-                                                <option>Select Semester</option>
+                                                <option value="" disable selected>Select Semester</option>
                                                 <?php
                                                 for($i=1;$i<=10;$i++)
                                                 {

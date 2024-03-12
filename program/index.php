@@ -375,7 +375,7 @@ if(isAdminLoggedIn());
 
                         <!-- Edit button -->
                         <td style="justify-content:center; text-align:center" width="5%"> 
-                            <a href="edit.php?pname=<?php echo $row['pName']?>"  style="background-color:white;" class="btn btn-light a-btn-slide-text">
+                            <a href="edit.php?pid=<?php echo $row['pid'];?>&pname=<?php echo $row['pName']?>"  style="background-color:white;" class="btn btn-light a-btn-slide-text">
                             <span style="color:orange" class="glyphicon glyphicon-edit fas fa-pen" aria-hidden="true"></span>
                             </a>
                         </td>

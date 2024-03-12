@@ -302,15 +302,13 @@
 											<div class="form-group">
 												<label for="exampleInputEmail1">Enter Total Number of Semesters</label>
                                                 <select name="semesters" class="form-control" required>
-                                                <option>Select Semester</option>
+                                                <option value="" disable selected>Select Semester</option>
                                                 <?php
-                                                for($i=1;$i<=10;$i++)
-                                                {
+                                                for($i=1;$i<=10;$i++){
                                                 ?>
                                                 <option value=<?php echo $i; ?>><?php echo $i; ?></option>
                                                 <?php
-                                                }
-                                                ?>
+                                                }?>
                                                 </select>
                                                 <!-- <input type="text" autofocus name="semesters" class="form-control" placeholder="Total Semesters" required /> -->
 											</div>
