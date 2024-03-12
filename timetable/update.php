@@ -18,7 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: display.php");
                 exit;
             } else {
-            echo "Update failed2: " . $db->error;
+            echo "Update failed: " . $db->error;
+            }
+        } else if($facultyId==02){
+            $sql="update tbl_timetable set fid=$facultyId,subid=02 where id=$cellId";
+            if($db->query($sql)==true){
+                header("Location: display.php");
+                exit;
+            } else {
+            echo "Update failed: " . $db->error;
             }
         } else {
             $sql1 = "update tbl_timetable set fid =$facultyId where id =$cellId";

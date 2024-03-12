@@ -23,9 +23,6 @@ if(isAdminLoggedIn());
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="../css/main.css" rel="stylesheet">
@@ -138,7 +135,7 @@ if(isAdminLoggedIn());
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="../subject/index.php" >
-                    <i class="fas fa-fw fa-book"></i>
+                    <i class="fas fa-fw fa-book-reader"></i>
                     <span>Subject</span>
                 </a>
             </li>
@@ -303,22 +300,22 @@ if(isAdminLoggedIn());
         </div>
         </form>
 
-        <div style="float:left;" class="font-weight-bold text-left">
-            <button class="btn-sm btn-danger a-btn-slide-text" id="delete_multiple" onclick=multipleSelect(this.id)>
-            <span class="glyphicon glyphicon-edit  " aria-hidden="true"></span>
-            <span width=400><strong>Delete</strong></span>
-            </button>
-        </div>
         <div style="float:left" class="ml-1 py-0 font-weight-bold text-primary text-left">
-            <button class="btn-sm btn-primary a-btn-slide-text" id="make-active" onclick=multipleSelect(this.id)>
+            <button class="btn-sm btn-success a-btn-slide-text" id="make-active" onclick=multipleSelect(this.id)>
             <span class="glyphicon glyphicon-edit  " aria-hidden="true"></span>
             <span width=400><strong>Make Active</strong></span>
             </button>
         </div>
         <div style="float:left" class="ml-1 py-0 font-weight-bold text-primary text-left">
-            <button class="btn-sm btn-primary a-btn-slide-text" id="make-inactive" onclick=multipleSelect(this.id)>
-            <span class="glyphicon glyphicon-edit  " aria-hidden="true"></span>
+            <button class="btn-sm btn-warning a-btn-slide-text" id="make-inactive" onclick=multipleSelect(this.id)>
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
             <span width=400><strong>Make Inactive</strong></span>
+            </button>
+        </div>
+        <div style="float:left;padding-left:5px;" class="font-weight-bold text-left">
+            <button class="btn-sm btn-danger a-btn-slide-text" id="delete_multiple" onclick=multipleSelect(this.id)>
+            <span class="glyphicon glyphicon-edit  " aria-hidden="true"></span>
+            <span width=400><strong>Delete</strong></span>
             </button>
         </div>
 
@@ -339,10 +336,8 @@ if(isAdminLoggedIn());
                             <!-- <th>
                             <b><input type='button' id="delete" value='Delete' name='delete'></b></th> -->
                             <th style="justify-content:center; text-align:center;" >
-                            
-                    
+                            <b>Select</b>
                             <input style='vertical-align:bottom;width:14px;height:15px;' name='checkbox-main' type='checkbox' value='Select All' id='checkbox-main' onclick=selectAll() >
-                         
                             </th>
                             <th style="text-align:center;"><b>Programme</b></th>
                             <th style="text-align:center;"><b>Total Semesters</b></th>
@@ -364,24 +359,24 @@ if(isAdminLoggedIn());
                         
                         </form>
                         
-                        <td style="justify-content:center; text-align:center" width="40%"> <?php echo $row["pName"]; ?> </td>
+                        <td style="justify-content:center; text-align:center" width="25%"> <?php echo $row["pName"]; ?> </td>
                         <td style="justify-content:center; text-align:center" width="20%"> <?php echo $row["semesters"]; ?> </td>
                         
-                        <td style="justify-content:center; text-align:center" width="5%"> 
+                        <td style="justify-content:center;padding-top:8px; text-align:center" width="5%"> 
                             <?php 
                                 if($row["pstatus"]==1) {?>
-                                <span style="color:green" class="glyphicon glyphicon-edit fas fa-md mt-1 py-2 fa-check " aria-hidden="true"></span> 
+                                <span style="color:green;font-size:22px" class="glyphicon glyphicon-edit fas fa-md mt-1 py-2 fa-check-circle" aria-hidden="true"></span> 
                             <?php
                                 }
                                 else if($row["pstatus"]==0) { ?> 
-                                <span style="color:maroon" class="glyphicon glyphicon-edit fas fa-lg mt-1 py-2 fa-times" aria-hidden="true"></span>
+                                <span style="color:maroon" class="glyphicon glyphicon-edit fas fa-lg mt-1 py-2 fa-times-circle" aria-hidden="true"></span>
                             <?php } ?>
                         </td>
 
                         <!-- Edit button -->
                         <td style="justify-content:center; text-align:center" width="5%"> 
                             <a href="edit.php?pname=<?php echo $row['pName']?>"  style="background-color:white;" class="btn btn-light a-btn-slide-text">
-                            <span style="color:orange" class="glyphicon glyphicon-edit fas fa-pencil-alt" aria-hidden="true"></span>
+                            <span style="color:orange" class="glyphicon glyphicon-edit fas fa-pen" aria-hidden="true"></span>
                             </a>
                         </td>
                         <!--<td><?php echo $row["pName"]; ?></td>-->
@@ -390,7 +385,7 @@ if(isAdminLoggedIn());
                         <td style="justify-content:center; text-align:center" width="5%"> 
                             <a href="delete.php?id=<?php echo $row['pid']; ?>" onclick="return confirm('Are you sure you want to delete?')" 
                               style="background-color:white;" class="btn btn-light a-btn-slide-text">
-                            <span style="color:red" class="glyphicon glyphicon-edit fas fa-md fa-trash" aria-hidden="true"></span>
+                            <span style="color:red" class="glyphicon glyphicon-edit fas fa-md fa-trash-alt" aria-hidden="true"></span>
                             </a>
                         </td>
 
@@ -418,7 +413,9 @@ if(isAdminLoggedIn());
             <footer class=" sticky-footer bg-white ">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SSTM 2024</span>
+                        <span>Copyright </span>
+                        <i class="fas fa-fw fa-copyright"></i>
+                        <span>SSTM 2024</span>
                     </div>
                 </div>
             </footer>

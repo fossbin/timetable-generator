@@ -2964,7 +2964,7 @@ readers do not read off random characters that represent icons */
 .fa-pen-square:before {
   content: "\f14b"; }
 
-.fa-pencil-alt:before {
+.fa-pen:before {
   content: "\f303"; }
 
 .fa-pencil-ruler:before {

@@ -28,10 +28,7 @@ $total_faculty = mysqli_num_rows($db->query("select * from tbl_faculty where fSt
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <!-- Custom styles for this template-->
+    <!-- Custom styles for this template -->
     <link href="css/main.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
@@ -62,7 +59,7 @@ $total_faculty = mysqli_num_rows($db->query("select * from tbl_faculty where fSt
             <li class="nav-item">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-clock"></i> 
-                    <span>Timetable</span></a>
+                    <span>Timetable </span></a>
             </li>
 
             <!-- Divider -->
@@ -103,7 +100,7 @@ $total_faculty = mysqli_num_rows($db->query("select * from tbl_faculty where fSt
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="subject/index.php" >
-                    <i class="fas fa-fw fa-book"></i>
+                    <i class="fas fa-fw fa-book-reader"></i>
                     <span>Subject</span>
                 </a>
             </li>
@@ -253,7 +250,7 @@ D5FFF3
 
                     <!-- Page Heading -->
                     <div class="mb-3 pl-3">
-                            <h1 class="h3 mb-0 text-gray-800">Timetable</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Timetable Operations</h1>
                             <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                     class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
@@ -399,7 +396,7 @@ D5FFF3
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_faculty?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-fw fa-user fa-2x text-gray-300"></i>
+                                            <i class="fas fa-fw fa-chalkboard-teacher fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -493,7 +490,9 @@ D5FFF3
             <footer class="sticky-footer bg-white ">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SSTM 2024</span>
+                        <span>Copyright </span>
+                        <i class="fas fa-fw fa-copyright"></i>
+                        <span>SSTM 2024</span>
                     </div>
                 </div>
             </footer>

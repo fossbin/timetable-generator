@@ -27,9 +27,6 @@ if(isset($_POST['timetableData'])) {
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="../css/main.css" rel="stylesheet">
@@ -111,7 +108,7 @@ if(isset($_POST['timetableData'])) {
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="../subject/index.php" >
-                    <i class="fas fa-fw fa-book"></i>
+                    <i class="fas fa-fw fa-book-reader"></i>
                     <span>Subject</span>
                 </a>
             </li>
@@ -271,8 +268,9 @@ if(isset($_POST['timetableData'])) {
             <?php endwhile;?>
             </select>
             <input type="hidden" name="timetableId" id="timetableId" value="">
-            <input class="btn-sm btn-primary a-btn-slide-text" style="width:80px;margin-left:20px" type="submit" value="Search" onclick="setTimetableId()">
-            </div>
+            <i class=""></i>
+            <input class="btn-sm btn-primary a-btn-slide-text" style="width:80px;margin-left:20px" type="submit" value="Search" onclick="setTimetableId()">    
+        </div>
         </form>         
         </div>
     <div class="card-body">
@@ -290,7 +288,9 @@ if(isset($_POST['timetableData'])) {
             <footer class=" sticky-footer bg-white ">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SSTM 2024</span>
+                        <span>Copyright </span>
+                        <i class="fas fa-fw fa-copyright"></i>
+                        <span>SSTM 2024</span>
                     </div>
                 </div>
             </footer>

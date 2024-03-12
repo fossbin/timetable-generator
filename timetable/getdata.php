@@ -31,6 +31,7 @@ if (isset($_POST['cellId'])) {
             while ($row = $result->fetch_assoc()) {
                 echo "<option value='" . $row['fid'] . "'>" . $row['fName'] . "</option>";
             }
+           echo "<option value='02'>Mentoring</option>";
            echo "<option value='03'>General Lab</option>";
             
         } else {

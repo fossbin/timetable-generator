@@ -6,17 +6,14 @@ require "class/db.php";
 $error = false;
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
-
     if(isset($_POST['login']))
-    {
-    
+    {   
         $adminid = $_POST['adminid'];
         $adminpswd = $_POST['adminpswd'];
     
         if($adminid != "" && $adminpswd !="")
         {
                 $resultset = $db->query("Select * from tbl_admin where adminid='$adminid' ");
-    
                 if($resultset->num_rows)
                 {
                     $row = $resultset->fetch_assoc();
@@ -24,7 +21,6 @@ if($_SERVER['REQUEST_METHOD']=='POST')
                     {
                         $_SESSION['adminid'] = $row['adminid'];
                         $_SESSION['adminpswd'] = $row['adminpswd'];
-            
                         if(isset($_SESSION['adminid']))
                         {
                             $error=false;
@@ -35,32 +31,21 @@ if($_SERVER['REQUEST_METHOD']=='POST')
                     {
                         $error = true;
                         $errMsg = "Incorrect username or password!<br>Please try again.";
-                        // echo " 
-                        // <script> alert('Incorrect username or password! Please try again.')
-                        // </script> ";
                     }
                 }
                 else
                 {
                     $error = true;
                     $errMsg = "Incorrect username or password!<br>Please try again.";
-                    // echo " 
-                    //     <script> alert('Incorrect username or password! Please try again.')
-                    //     </script> ";
                 }
         }
         else if($adminid == "" || $adminpswd == "")
         {
             $error = true;
             $errMsg = "Some fields are empty. All fields required!";
-            // echo "
-            // <script> alert('Some fields are empty. All fields required!')
-            // </script> ";
         }
     }
 }
-
-
 ?>
 
 
@@ -79,9 +64,6 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/main.css" rel="stylesheet">
