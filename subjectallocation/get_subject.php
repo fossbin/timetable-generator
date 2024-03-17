@@ -8,7 +8,7 @@ if(!empty($_POST["semid"]))
 {
     $sid = $_POST["semid"];
     $pid = $_POST["pid"];
-    $sql_subject =  "select * from tbl_subject where pid=$pid and semid=$sid";
+        $sql_subject =  "select * from tbl_subject where pid=$pid and semid=$sid and subid not in (select subid from tbl_allocation)";
 }
 
 ?>

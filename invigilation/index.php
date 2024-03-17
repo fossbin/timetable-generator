@@ -83,7 +83,7 @@ if(isAdminLoggedIn());
             <div class=" sidebar-brand-text d-flex mt-3 justify-content-center">
                 <image class="" src="../img/scms-logo.jpg" style="width:60px"></image>
             </div>
-            <a class="sidebar-brand d-flex mb-3 align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex mb-3 align-items-center justify-content-center" href="../index.php">
                 <div class="sidebar-brand-text">Timetable Management System </div> 
             </a>
             

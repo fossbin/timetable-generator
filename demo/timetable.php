@@ -340,7 +340,6 @@ if(isAdminLoggedIn());
                                         $allocation = $db->query($sql);
                                         // echo $batches;
 
-
                                         $sql_batch = "select * From tbl_batch";
                                         $batches = $db->query($sql_batch);
                                         if($batches->num_rows>0)

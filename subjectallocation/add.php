@@ -15,7 +15,7 @@
            $bid = $_POST['batchlist'];
            $semid = $_POST['semlist'];
            $pid = $_POST['program'];
-           $fid = $_POST['faculty'];
+           $fid = $_POST['facultylist'];
           
            $sql = "insert into tbl_allocation(subid,bid,semid,pid,fid) values ($subid,$bid,$semid,$pid,$fid)";
            if($db->query($sql) == TRUE)
@@ -67,7 +67,6 @@
             });
         }
 
-       
         function getsemester(val){ //val is bid
             $.ajax({
                 type: "POST",
@@ -91,6 +90,19 @@
                 }
             })
         }
+        // JavaScript Function to Fetch Faculty List
+function getFacultyList(subid) {
+    $.ajax({
+        type: "POST",
+        url: "get_faculty.php",
+        data: { subid: subid },
+        success: function(data) {
+            $("#facultylist").html(data);
+        }
+    });
+}
+
+
 
     </script>
 
@@ -364,33 +376,18 @@
                                             <div class="form-group">
 												<label for="exampleInputEmail1">Select Subject</label>
                                                 
-                                                <select name="subjectlist" id="subjectlist" class="form-control" required>
+                                                <select name="subjectlist" id="subjectlist" onchange="getFacultyList(this.value);" class="form-control" required>
 													<option value="">Select</option>
                                                    
 												</select> 
 											</div>
+                                            <!-- Select Faculty -->
                                             <div class="form-group">
-												<label for="exampleInputEmail1">Select Faculty</label>
-                                                
-                                                <select name="faculty" id="faculty" class="form-control" required>
-													<option value="">Select Faculty</option>
-                                                    <?php
-                                                        $sql_faculty = "select * from tbl_faculty";
-                                                        $result_faculty = $db->query($sql_faculty);
-                                                        if( $result_faculty->num_rows > 0 )
-                                                        {
-                                                            while( $faculty_row = $result_faculty->fetch_assoc())
-                                                            { ?>
-                                                            <option value="<?php echo $faculty_row['fid'];?>"><?php echo $faculty_row['fName'];?></option>
-                                                            <?php
-                                                            }
-                                                        }
-                                                    ?>   
-												</select> 
-											</div>
-											
-                                            
-                                            
+                                                <label for="exampleInputEmail1">Select Faculty</label>
+                                                <select name="facultylist" id="facultylist" class="form-control" required>
+                                                    <option value="">Select</option>
+                                                </select> 
+                                            </div>
 											<div class="form-group">
                                                 <button name="submit" type="submit" class="btn btn-primary ml-3 float-right">Submit</button>
                                                 <a href="index.php"><input type="button" value="Back" class="btn btn-danger float-right"></a>

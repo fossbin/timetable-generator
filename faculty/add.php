@@ -18,7 +18,6 @@
        $fPhone=$_POST["fPhone"];
        $fGender=$_POST["fGender"];
        $fSubcount=$_POST["fSubcount"];
-
                 $sql = "insert into tbl_faculty (fName,fDesignation,fQualification,fEmail,fPhone,fGender,fSubcount) VALUES ('$fName','$fDesignation','$fQualification','$fEmail',$fPhone,'$fGender',$fSubcount)";
                 if($db->query($sql) == TRUE)
                 { 
@@ -31,10 +30,7 @@
                 <script> alert("Error!!"); </script>
                 <?php
                 echo " ".$db->error; 
-                }
-            
-            
-       
+                }   
 	}
 ?>
 <!DOCTYPE html>
